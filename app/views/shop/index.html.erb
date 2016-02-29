@@ -1,0 +1,12 @@
+<h1>Product for sale </h1>
+<%if !@items.empty?%>
+	<% @items.each do |item| %>
+
+	<h4><%= item.title %></h4>
+	<%= number_to_currency(item.price, :unit => '€' ) %>
+	Weight:<%= item.weight %> kg
+	<%= button_to 'Add to Cart', lineitems_path(item_id: item)%>
+	<%end%>
+	<% else %>
+	<h2>Our store is currently empty</h2>
+	<% end %>
