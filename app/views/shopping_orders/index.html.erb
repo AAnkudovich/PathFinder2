@@ -14,17 +14,48 @@
   </thead>
 
   <tbody>
-    <% @shopping_orders.each do |shopping_order| %>
-      <tr>
-        <td><%= shopping_order.customer_id %></td>
-        <td><%= shopping_order.payMethod %></td>
-        <td><%= shopping_order.total %></td>
-        <td><%= shopping_order.currentStatus %></td>
-        <td><%= link_to 'Show', shopping_order %></td>
-        <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
-        <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%if current_user.is_admin? %>
+            <p>Administrator</p>
+            <% @shopping_orders.each do |shopping_order| %>
+                <tr>
+                  <td><%= shopping_order.customer_id %></td>
+                  <td><%= shopping_order.payMethod %></td>
+                  <td><%= shopping_order.total %></td>
+                  <td><%= shopping_order.currentStatus %></td>
+                  <td><%= link_to 'Show', shopping_order %></td>
+                  <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
+                  <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            <% elsif current_user.is_packer?%>
+            <p>Packer</p>
+            <% @shopping_orders.each do |shopping_order| %>
+              <tr>
+                <td><%= shopping_order.customer_id %></td>
+                <td><%= shopping_order.payMethod %></td>
+                <td><%= shopping_order.total %></td>
+                <td><%= shopping_order.currentStatus %></td>
+                <td><%= link_to 'Show', shopping_order %></td>
+                <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
+                <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            <% else %>
+            <p>Your previous orders</p>
+            
+            <% @currentUsersOrders.each do |shopping_order| %>
+              <tr>
+                <td><%= shopping_order.customer_id %></td>
+                <td><%= shopping_order.payMethod %></td>
+                <td><%= shopping_order.total %></td>
+                <td><%= shopping_order.currentStatus %></td>
+                <td><%= link_to 'Show', shopping_order %></td>
+                <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
+                <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            <% end %>
+    
   </tbody>
 </table>
 
