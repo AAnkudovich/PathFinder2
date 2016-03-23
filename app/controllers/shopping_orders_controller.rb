@@ -11,6 +11,8 @@ class ShoppingOrdersController < ApplicationController
   # GET /shopping_orders/1
   # GET /shopping_orders/1.json
   def show
+    @locations = Location.all
+    @items = Item.all
   end
 
   # GET /shopping_orders/new
