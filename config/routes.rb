@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :locations
   resources :items
   devise_for :users
   root to: "shop#index"
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   resources :shopping_orders
   resources :lineitems
   get 'shop/index'
+  get 'shop/floorLayout'
+  get 'shop/pathSearch'
   
 
   # The priority is based upon order of creation: first created -> highest priority.
