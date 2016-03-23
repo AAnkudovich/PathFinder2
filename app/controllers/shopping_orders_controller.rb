@@ -28,6 +28,7 @@ class ShoppingOrdersController < ApplicationController
     @shopping_order = ShoppingOrder.new(shopping_order_params)
     @shopping_order.add_lineitems_from_cart(current_cart) 
     @shopping_order.customer_id = current_user.id
+    @shopping_order.currentStatus = "Submited"
 
     respond_to do |format|
       if @shopping_order.save
