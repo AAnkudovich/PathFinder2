@@ -2,7 +2,9 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @shopping_order.customer_id %>
+  
+  <% user = User.find(@shopping_order.customer_id)%>
+  <%= user.name %>
 </p>
 
 <p>
@@ -19,6 +21,32 @@
   <strong>Currentstatus:</strong>
   <%= @shopping_order.currentStatus %>
 </p>
+<%= render 'shopGrid' %>
+<table>
+	<tr>
+		<th>Quantity</th>
+		<th style="padding-left:20px; padding-right:20px;">Title</th>
+		<th>Total</th>
+	</tr>
+
+<% @shopping_order.lineitems.each do |litem| %> 
+<tr>
+<td><%= litem.quantity %> &times;</td>
+ <td style="padding-left:20px; padding-right:20px;"><%= litem.item.title %></td> 
+<td><%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %></td>
+
+<% location = Location.find(litem.item.locationId) %>
+<script  type="text/javascript">
+	jQuery(document).ready(function($) {
+      var str ='.'+ <%= location.lat %> + '-' + <%= location.lon %>;
+      $(str).css({"background-color": "red"});
+  
+      });
+
+	</script>
+</tr>
+<% end %> 
+</table>
 
 <%= link_to 'Edit', edit_shopping_order_path(@shopping_order) %> |
 <%= link_to 'Back', shopping_orders_path %>
