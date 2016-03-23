@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :lineitems
   get 'shop/index'
   get 'shop/floorLayout'
+  get 'shop/pathSearch'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -8,4 +8,9 @@ class ShopController < ApplicationController
   	@items = Item.all
 
   end
+  def pathSearch
+  	@locations = Location.all
+  	@items = Item.all
+
+  end
 end
