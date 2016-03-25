@@ -22,9 +22,12 @@
                   <td><%= shopping_order.payMethod %></td>
                   <td><%= shopping_order.total %></td>
                   <td><%= shopping_order.currentStatus %></td>
-                  <td><%= link_to 'Show', shopping_order %></td>
-                  <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
-                  <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><div class="btn-group" style="padding-bottom:10px;">
+                  <%= link_to 'Show', shopping_order ,:class => "btn btn-success " %>
+                  <%= link_to 'Edit', edit_shopping_order_path(shopping_order) ,:class => "btn btn-primary " %>
+                  <%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger " %>
+                </div>
+                </td>
                 </tr>
               <% end %>
             <% elsif current_user.is_packer?%>
@@ -35,23 +38,22 @@
                 <td><%= shopping_order.payMethod %></td>
                 <td><%= shopping_order.total %></td>
                 <td><%= shopping_order.currentStatus %></td>
-                <td><%= link_to 'Show', shopping_order %></td>
-                <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
-                <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                
               </tr>
             <% end %>
             <% else %>
             <p>Your previous orders</p>
-            
+
             <% @currentUsersOrders.each do |shopping_order| %>
               <tr>
                 <td><%= shopping_order.customer_id %></td>
                 <td><%= shopping_order.payMethod %></td>
                 <td><%= shopping_order.total %></td>
                 <td><%= shopping_order.currentStatus %></td>
-                <td><%= link_to 'Show', shopping_order %></td>
-                <td><%= link_to 'Edit', edit_shopping_order_path(shopping_order) %></td>
-                <td><%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                
+                <td><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                
               </tr>
             <% end %>
             <% end %>
