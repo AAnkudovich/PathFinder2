@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :locations
   resources :items
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   root to: "shop#index"
   resources :carts do
     resources :lineitems
