@@ -47,6 +47,9 @@
 </tr>
 <% end %> 
 </table>
-
+<%if current_user.is_admin? %>
+            
+         
 <%= link_to 'Edit', edit_shopping_order_path(@shopping_order) %> |
 <%= link_to 'Back', shopping_orders_path %>
+    <% end %>

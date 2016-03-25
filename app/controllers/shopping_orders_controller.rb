@@ -6,6 +6,7 @@ class ShoppingOrdersController < ApplicationController
   # GET /shopping_orders.json
   def index
     @shopping_orders = ShoppingOrder.all
+    @currentUsersOrders = ShoppingOrder.where(customer_id: current_user.id).to_a
   end
 
   # GET /shopping_orders/1
