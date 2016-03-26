@@ -13,8 +13,27 @@
 
   
   <div class="field">
-    <%= f.label :payMethod %><br />
+    <%= f.label :payMethod %>
     <%= f.select :payMethod , ["Debit Card", "Credit Card", "Paypal"] %> </div>
+
+    
+  <table>
+   <% @cart = Cart.find(session[:cart_id])%>
+   <% @total=0 %>
+    <% @cart.lineitems.each do |litem| %> <tr>
+    <td><%= litem.quantity %> &times;</td> 
+    <td><%= litem.item.title %></td> 
+    <td><%= number_to_currency(litem.item.price, :unit => '€' )  %></td>
+    <td><strong> Total: <%= number_to_currency(litem.item.price*litem.quantity, :unit => '€' )  %></strong></td>
+    <td><%= link_to 'Remove', litem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% @total = @total + (litem.item.price*litem.quantity) %>
+</tr>
+    <% end %> </table>
+    <div class="field">
+    <strong>Order Total</strong>
+    <%= f.text_field :total , :value => @total %>
+  </div>
+  
   
   
   <div class="actions">

@@ -1,6 +1,7 @@
 <table>
 <% @cart.lineitems.each do |litem| %> <tr>
-<td><%= litem.quantity %> &times;</td> <td><%= litem.item.title %></td> </tr>
+<td><%= litem.quantity %> &times;</td> <td><%= litem.item.title %></td> 
+<td><%= link_to 'Remove', litem, method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
 <% end %> </table>
 <%= button_to "Continue Shopping?", root_path, :method => :get %>
 <%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?' %>

@@ -19,6 +19,8 @@ class ShoppingOrdersController < ApplicationController
   # GET /shopping_orders/new
   def new
     @shopping_order = ShoppingOrder.new
+    @items = Item.all
+    @lineitems = Lineitem.all
   end
 
   # GET /shopping_orders/1/edit
