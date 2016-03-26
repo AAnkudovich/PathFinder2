@@ -42,12 +42,14 @@ class ShoppingOrdersController < ApplicationController
     @shopping_order.customer_id = current_user.id
     @shopping_order.currentStatus = "Submited"
 
+
     respond_to do |format|
       if @shopping_order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
 
         format.html { redirect_to root_path, notice: 'Thank you for your order' }
+        UserMailer.created_order_email(current_user).deliver
         format.json { render :show, status: :created, location: @shopping_order }
       else
         @cart = current_cart
@@ -77,6 +79,7 @@ class ShoppingOrdersController < ApplicationController
     @shopping_order.destroy
     respond_to do |format|
       format.html { redirect_to shopping_orders_url, notice: 'Shopping order was successfully destroyed.' }
+      UserMailer.cancelled_order_email(current_user).deliver
       format.json { head :no_content }
     end
   end
