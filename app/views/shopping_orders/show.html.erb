@@ -53,6 +53,9 @@
 <%if current_user.is_admin? %>
             
          
-<%= link_to 'Edit', edit_shopping_order_path(@shopping_order) %> |
+<%= link_to 'Edit', edit_shopping_order_path(@shopping_order) %> 
 <%= link_to 'Back', shopping_orders_path %>
-    <% end %>
+<% end %>
+<% if @shopping_order.customer_id == current_user.id%>
+<%= link_to 'Cancel the order', @shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger pull-right" %> 
+<% end %>
