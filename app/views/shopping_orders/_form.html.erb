@@ -25,13 +25,15 @@
     <td><%= litem.item.title %></td> 
     <td><%= number_to_currency(litem.item.price, :unit => '€' )  %></td>
     <td><strong> Total: <%= number_to_currency(litem.item.price*litem.quantity, :unit => '€' )  %></strong></td>
-    <td><%= link_to 'Remove', litem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <i class="fa fa-times"></i> Remove
+    <% end %>
     <% @total = @total + (litem.item.price*litem.quantity) %>
 </tr>
     <% end %> </table>
     <div class="field">
-    <strong>Order Total</strong>
-    <%= f.text_field :total , :value => @total %>
+    <strong>Order Total: €</strong>
+    <%= f.text_field :total , :value => @total ,:readonly => true%>
   </div>
   
   

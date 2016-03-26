@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # bootstrap
 gem 'bootstrap-sass', '~> 3.2.0'
+# font awsome
+gem 'font-awesome-sass'
 
 
 # Use ActiveModel has_secure_password
