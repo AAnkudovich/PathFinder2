@@ -14,6 +14,13 @@ class ShoppingOrdersController < ApplicationController
   def show
     @locations = Location.all
     @items = Item.all
+    respond_to do |format|
+      format.html 
+      format.pdf do
+         pdf = OrderPdf.new(@shopping_order, view_context)
+         send_data pdf.render, filename: "Order_#{@shopping_order.id}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   # GET /shopping_orders/new
