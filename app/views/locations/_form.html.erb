@@ -13,12 +13,16 @@
 
   <div class="field">
     <%= f.label :lat %><br>
-    <%= f.number_field :lat %>
+    <%= f.number_field :lat ,:readonly => true%>
   </div>
   <div class="field">
     <%= f.label :lon %><br>
-    <%= f.number_field :lon %>
+    <%= f.number_field :lon ,:readonly => true%>
   </div>
+  <h3 id="indicator-of-click"></h3>
+  <%= render 'layouts/shopGridForNewShelf' %>
+
+  
   <div class="actions">
     <%= f.submit %>
   </div>
