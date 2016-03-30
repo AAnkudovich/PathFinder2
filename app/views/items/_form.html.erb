@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+<div class="col-md-6">
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :locationId %><br>
-    <%= f.number_field :locationId %>
+    <%= f.number_field :locationId ,:readonly => true%>
   </div>
   <div class="field">
     <%= f.label :boxId %><br>
@@ -43,7 +43,12 @@
     <%= f.label :weight %><br>
     <%= f.text_field :weight %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
+  </div>
+  </div>
+  <div class="col-md-6">
+  <%= render 'layouts/shopGridForNewItemOnTheShelf' %>
   </div>
 <% end %>

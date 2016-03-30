@@ -10,15 +10,20 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @locations = Location.all
   end
 
   # GET /items/new
   def new
     @item = Item.new
+    @items = Item.all
+    @locations = Location.all
   end
 
   # GET /items/1/edit
   def edit
+    @locations = Location.all
+    @items = Item.all
   end
 
   # POST /items
