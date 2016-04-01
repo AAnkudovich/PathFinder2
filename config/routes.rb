@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :packing_jobs
   resources :locations
   resources :items
   devise_for :users, controllers: { registrations: "registrations" }

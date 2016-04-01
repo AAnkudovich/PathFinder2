@@ -9,9 +9,11 @@
 <%= form_for(@user) do |f| %>
  <div><%= f.label :name %><br />
         <%= f.text_field :name, autofocus: true %></div>
+        
+
         <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Female" %>
           <%= f.radio_button :is_female, false %> <%= f.label :is_female, "Male" %>
-          
+
         <div><%= f.check_box :is_admin, {}, true %> <%= f.label :is_admin, "Admin" %> </div>
     <div><%= f.check_box :is_packer, {}, true %> <%= f.label :is_packer, "Packer" %> </div>
     

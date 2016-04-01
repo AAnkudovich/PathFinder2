@@ -19,4 +19,28 @@ class ApplicationController < ActionController::Base
         session[:cart_id] = @cart.id 
         @cart
     end
+    def createAPackingJob(shopping_order_id)
+        packingHash= Hash.new
+        packingHash["shoppingOrder_id"]=shopping_order_id
+        
+        @packers = User.where(is_packer: true).to_a
+
+        @packing_jobs = PackingJob.all
+        @busyPackers=[]
+        @packing_jobs.each do |packing_job|
+        if packing_job.customer_id!=nil
+             user = User.find(packing_job.customer_id)
+             @busyPackers << user
+            end
+         end 
+
+        @availablePackers=@packers-@busyPackers
+        if @availablePackers[0]!=nil 
+            packingHash["customer_id"]=@availablePackers[0].id
+        end
+    
+        @packing_job = PackingJob.create(packingHash)
+        @packing_job
+
+    end
 end

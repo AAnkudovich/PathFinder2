@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Packing Jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assigned Packer</th>
+      <th>Shoppingorder</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packing_jobs.each do |packing_job| %>
+      <tr>
+        <%if packing_job.customer_id!=nil %>
+        <% user = User.find(packing_job.customer_id)%>
+  
+        <td><%= user.name %></td>
+        
+            <% else %>
+            <td>No Packer Yet</td>
+            <% end %>
+            
+        <td><%= packing_job.shoppingOrder_id %></td>
+        <td><%= link_to 'Show', packing_job %></td>
+        <td><%= link_to 'Edit', edit_packing_job_path(packing_job) %></td>
+        <td><%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Packing job', new_packing_job_path %>

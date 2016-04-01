@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @packing_job.customer_id %>
+  <%= @packing_job.user.name %>
+</p>
+
+<p>
+  <strong>Shoppingorder:</strong>
+  <%= @packing_job.shoppingOrder_id %>
+</p>
+
+<%= link_to 'Edit', edit_packing_job_path(@packing_job) %> |
+<%= link_to 'Back', packing_jobs_path %>
