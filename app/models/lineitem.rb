@@ -16,4 +16,8 @@ class Lineitem < ActiveRecord::Base
    returningpoints=weightPoints +  fragilePoints + boxPoints
 
     end
+    def updateStatus(lineitem)
+      
+
+    end
 end

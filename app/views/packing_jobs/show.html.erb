@@ -43,8 +43,19 @@
 <td class="text-center">
 	<%= litem.sortingMethod(litem) %>
 </td>
+<td>
+	<% if litem.packed %>
+	<strong>Packed</strong>
 
-<% location = Location.find(litem.item.locationId) %>
+		<% else %>
+		
+			<%= form_for(litem) do |f| %>
+			<%= f.hidden_field :packed , :value => '1' %>
+			<div class="actions">
+			    <%= f.submit "Processed", :class => "btn btn-primary not-yet-processed" %>
+			  </div>
+			<% end %>
+		<% location = Location.find(litem.item.locationId) %>
 <% itemDis = Item.find(litem.item_id) %>
 
 <script  type="text/javascript">
@@ -56,15 +67,39 @@
         alert(' Item Name: <%= litem.item.title %>' + "\n" + "Item Quantity: " +  <%= litem.quantity %> + "\n" + "Item Weight: " +  <%= litem.item.weight %>);
       });
       });
+	
 
 	</script>
+		<% end %>
+</td>
+
+
 </tr>
 <% end %> 
 </table>
+<%= form_for(@shopping_order) do |f| %>
+<%= f.hidden_field :currentStatus , :value => 'Shipped' %>
+			<div class="actions">
+			    <%= f.submit "Ship the order", :class => "btn btn-sucess not-yet-shipped hidden" %>
+			  </div>
+			<% end %>
 
+<script  type="text/javascript">
+	jQuery(document).ready(function($) {
+      
+	if ( $( ".not-yet-processed" ).length ) {
+ 
+    	alert($( ".not-yet-processed" ).length)
+ 
+	}
+	else{
+		$( ".not-yet-shipped" ).removeClass("hidden");
+	}
+});
+
+	</script>
 
 </div>
 
 
-<%= link_to 'Edit', edit_packing_job_path(@packing_job) %> |
-<%= link_to 'Back', packing_jobs_path %>
+
