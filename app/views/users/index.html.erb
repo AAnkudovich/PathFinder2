@@ -1,0 +1,5 @@
+<% @users.each do |user| %>
+<%= link_to user.email, user %>
+<span style="color:red;"><%= user.name %></span>
+<%= user.email %><br>
+<% end %>

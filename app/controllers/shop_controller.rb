@@ -13,4 +13,6 @@ class ShopController < ApplicationController
   	@items = Item.all
 
   end
+  def usersList
+  end
 end

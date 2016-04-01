@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :locations
   resources :items
   devise_for :users, controllers: { registrations: "registrations" }
+  resources :users
   root to: "shop#index"
   resources :carts do
     resources :lineitems
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   get 'shop/index'
   get 'shop/floorLayout'
   get 'shop/pathSearch'
+  get 'shop/usersList'
   
 
   # The priority is based upon order of creation: first created -> highest priority.
