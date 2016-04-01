@@ -13,7 +13,8 @@
 
   <tbody>
     <% @packing_jobs.each do |packing_job| %>
-      <tr>
+    <% shoppingorder  = ShoppingOrder.find(packing_job.shoppingOrder_id) %>
+      <tr class="<%= shoppingorder.currentStatus %>">
         <%if packing_job.customer_id!=nil %>
         <% user = User.find(packing_job.customer_id)%>
   
@@ -24,6 +25,9 @@
             <% end %>
             
         <td><%= packing_job.shoppingOrder_id %></td>
+        
+          
+
         <td><%= link_to 'Show', packing_job %></td>
         <td><%= link_to 'Edit', edit_packing_job_path(packing_job) %></td>
         <td><%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -33,5 +37,14 @@
 </table>
 
 <br>
+<script  type="text/javascript">
+  jQuery(document).ready(function($) {
+      
+      
+      $(".Shipped").addClass("hidden");
+      
+      });
+  
 
-<%= link_to 'New Packing job', new_packing_job_path %>
+  </script>
+
