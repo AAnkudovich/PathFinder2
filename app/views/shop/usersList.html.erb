@@ -1,0 +1,11 @@
+<% @users = User.all %>
+<% @users.each do |user| %>
+<div class="<% if user.email == current_user.email %> well own-profile-indication <% end %>">
+  <%=  user.name %>
+  <%= user.email %>
+  <% if user.is_admin?%>Administrator
+  <% elsif user.is_packer? %> Packer
+  <% else %> Customer<% end %><br/>
+  <%= link_to edit_user_registration_path(user) %>
+</div>
+<% end %>

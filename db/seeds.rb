@@ -152,3 +152,12 @@ Location.create(lat: '8', lon: '22')
 Location.create(lat: '8', lon: '23')
 Location.create(lat: '8', lon: '24')
 
+Box.create(name: 'xs', points: '5')
+Box.create(name: 'sm', points: '10')
+Box.create(name: 'ml', points: '15')
+Box.create(name: 'lx', points: '20')
+Box.create(name: 'lxl', points: '25')
+Box.create(name: 'xl', points: '30')
+Box.create(name: 'xxl', points: '35')
+
+

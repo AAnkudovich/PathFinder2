@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+<div class="col-sm-6 pull-right">
+<p>
+  <strong>Shopping Order Id:</strong>
+  <%= @packing_job.shoppingOrder_id %>
+</p>
+<%= render 'layouts/shopGrid' %>
+</div>
+
+
+
+
+<div class="col-sm-6">
+<p>
+  <strong>Packer :</strong>
+  <%= @packing_job.customer_id %>
+
+  <% if @packing_job.customer_id!=nil
+  user = User.find(@packing_job.customer_id)
+  user.name
+  end %>
+</p>
+<% @shopping_order = ShoppingOrder.find(@packing_job.shoppingOrder_id)%>
+<table>
+	<tr>
+		<th>Quantity</th>
+		<th style="padding-left:20px; padding-right:20px;">Title</th>
+		<th></th>
+		<th>Packing Order Index</th>
+		
+	</tr>
+<% @packingitems=@shopping_order.lineitems.sort {|a,b| b.sortingMethod(b)  <=> a.sortingMethod(a)}%>
+<% @packingitems.each do |litem| %> 
+<tr>
+
+<td><%= litem.quantity %> &times;</td>
+ <td style="padding-left:20px; padding-right:20px;">
+  <%= litem.item.title %>
+ </td> 
+<td>
+  <%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %>
+</td>
+<td class="text-center">
+	<%= litem.sortingMethod(litem) %>
+</td>
+
+<% location = Location.find(litem.item.locationId) %>
+<% itemDis = Item.find(litem.item_id) %>
+
+<script  type="text/javascript">
+	jQuery(document).ready(function($) {
+      var str ='.'+ <%= location.lat %> + '-' + <%= location.lon %>;
+      
+      $(str).css({"background-color": "green"});
+      $(str).click(function() {
+        alert(' Item Name: <%= litem.item.title %>' + "\n" + "Item Quantity: " +  <%= litem.quantity %> + "\n" + "Item Weight: " +  <%= litem.item.weight %>);
+      });
+      });
+
+	</script>
+</tr>
+<% end %> 
+</table>
+
+
+</div>
+
+
+<%= link_to 'Edit', edit_packing_job_path(@packing_job) %> |
+<%= link_to 'Back', packing_jobs_path %>

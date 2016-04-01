@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309132200) do
+ActiveRecord::Schema.define(version: 20160401150910) do
+
+  create_table "boxes", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "points",     limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -45,6 +52,13 @@ ActiveRecord::Schema.define(version: 20160309132200) do
     t.integer  "lon",        limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "packing_jobs", force: :cascade do |t|
+    t.integer  "customer_id",      limit: 4
+    t.integer  "shoppingOrder_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "shopping_orders", force: :cascade do |t|
