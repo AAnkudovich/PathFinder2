@@ -10,6 +10,7 @@ class PackingJobsController < ApplicationController
   # GET /packing_jobs/1
   # GET /packing_jobs/1.json
   def show
+    @locations = Location.all
   end
 
   # GET /packing_jobs/new

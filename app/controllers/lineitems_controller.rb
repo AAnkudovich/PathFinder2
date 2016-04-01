@@ -72,4 +72,18 @@ class LineitemsController < ApplicationController
     def lineitem_params
       params.require(:lineitem).permit(:item_id, :shopping_order_id, :cart_id, :quantity)
     end
+
+    def sortingMethod(lineitem)
+    weightPoints = lineitem.item.weight
+    fragilePoints = 0
+    if lineitem.item.fragile
+        fragilePoints=20
+    end
+    box = Box.find(lineitem.item.boxId) 
+    boxPoints = box.points
+
+
+   returningpoints=weightPoints +  fragilePoints + boxPoints
+
+    end
 end
