@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1459951250/order_online_fudfae.jpg" />
 <h1>Listing Shopping Orders</h1>
 
 <table>
@@ -15,14 +16,14 @@
 
   <tbody>
     <%if current_user.is_admin? %>
-            <p>Administrator</p>
+            <p>Administrator View</p>
             <% @shopping_orders.each do |shopping_order| %>
                 <tr>
-                  <td><%= shopping_order.customer_id %></td>
-                  <td><%= shopping_order.payMethod %></td>
-                  <td><%= shopping_order.total %></td>
-                  <td><%= shopping_order.currentStatus %></td>
-                  <td><div class="btn-group" style="padding-bottom:10px;">
+                  <td style="width:20%;"><%= shopping_order.customer_id %></td>
+                  <td style="width:20%;"><%= shopping_order.payMethod %></td>
+                  <td style="width:20%;"><%= shopping_order.total %></td>
+                  <td style="width:20%;"><%= shopping_order.currentStatus %></td>
+                  <td style="width:20%;"><div class="btn-group pull-right" style="padding-bottom:10px;">
                   <%= link_to 'Show', shopping_order ,:class => "btn btn-success " %>
                   <%= link_to 'Edit', edit_shopping_order_path(shopping_order) ,:class => "btn btn-primary " %>
                   <%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger " %>
@@ -34,11 +35,11 @@
             <p>Packer</p>
             <% @shopping_orders.each do |shopping_order| %>
               <tr>
-                <td><%= shopping_order.customer_id %></td>
-                <td><%= shopping_order.payMethod %></td>
-                <td><%= shopping_order.total %></td>
-                <td><%= shopping_order.currentStatus %></td>
-                <td><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                <td style="width:20%;"><%= shopping_order.customer_id %></td>
+                <td style="width:20%;"><%= shopping_order.payMethod %></td>
+                <td style="width:20%;"><%= shopping_order.total %></td>
+                <td style="width:20%;"><%= shopping_order.currentStatus %></td>
+                <td style="width:20%;"><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
                 
               </tr>
             <% end %>
@@ -47,12 +48,12 @@
 
             <% @currentUsersOrders.each do |shopping_order| %>
               <tr>
-                <td><%= shopping_order.customer_id %></td>
-                <td><%= shopping_order.payMethod %></td>
-                <td><%= shopping_order.total %></td>
-                <td><%= shopping_order.currentStatus %></td>
+                <td style="width:20%;"><%= shopping_order.customer_id %></td>
+                <td style="width:20%;"><%= shopping_order.payMethod %></td>
+                <td style="width:20%;"><%= shopping_order.total %></td>
+                <td style="width:20%;"><%= shopping_order.currentStatus %></td>
                 
-                <td><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                <td style="width:20%;"><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
                 
               </tr>
             <% end %>
