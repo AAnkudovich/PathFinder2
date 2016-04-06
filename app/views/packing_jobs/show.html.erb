@@ -13,14 +13,27 @@
 <div class="col-sm-6">
 <p>
   <strong>Packer :</strong>
-  <%= @packing_job.customer_id %>
 
-  <% if @packing_job.customer_id!=nil
-  user = User.find(@packing_job.customer_id)
-  user.name
-  end %>
-</p>
+  <% if @packing_job.customer_id==0%>
+  	Packing is complete
+
+	<% elsif @packing_job.customer_id != nil %>
+	  <%user = User.find(@packing_job.customer_id)%>
+	  <%=user.name%>
+	  <% end %>
+	</p>
+	
+
 <% @shopping_order = ShoppingOrder.find(@packing_job.shoppingOrder_id)%>
+<%if @shopping_order.currentStatus == 'Submited'%>
+<%= form_for(@shopping_order) do |f| %>
+<%= f.hidden_field :currentStatus , :value => 'Currently Packing' %>
+			<div class="actions">
+			    <%= f.submit "Start the packing", :class => "btn btn-success not-yet-shipped hidden" %>
+			  </div>
+			<% end %>
+			<% else %>
+
 <table>
 	<tr>
 		<th>Quantity</th>
@@ -77,23 +90,35 @@
 </tr>
 <% end %> 
 </table>
+
+
 <%= form_for(@shopping_order) do |f| %>
 <%= f.hidden_field :currentStatus , :value => 'Shipped' %>
 			<div class="actions">
-			    <%= f.submit "Ship the order", :class => "btn btn-sucess not-yet-shipped hidden" %>
+			    <%= f.submit "Ship the order", :class => "btn btn-success not-yet-shipped hidden" %>
 			  </div>
 			<% end %>
+<%= form_for(@packing_job) do |form| %>
+<div class="field">
+    <%= form.hidden_field :customer_id , :value => 0 %>
+  </div>
+  <div class="actions">
+			    <%= form.submit "Complete Packing", :class => "btn btn-success not-yet-shipped hidden" %>
+			  </div>
+<% end %>
 
+<%end%>
 <script  type="text/javascript">
 	jQuery(document).ready(function($) {
       
 	if ( $( ".not-yet-processed" ).length ) {
  
-    	alert($( ".not-yet-processed" ).length)
+    	
  
 	}
 	else{
 		$( ".not-yet-shipped" ).removeClass("hidden");
+		
 	}
 });
 
