@@ -45,6 +45,29 @@ class ApplicationController < ActionController::Base
         @packing_job
 
     end
+    def assignPackerToNewJob
+        packingHash= Hash.new
+        @PackingJobUnatended = PackingJob.where(customer_id: nil)
+        packingHash["shoppingOrder_id"]=@PackingJobUnatended[0].id
+
+        @packers = User.where(is_packer: true).to_a
+        @busyPackers=[]
+        if packing_job.customer_id!=nil 
+             user = User.find(packing_job.customer_id)
+             @busyPackers << user
+            end
+        @availablePackers=@packers-@busyPackers
+        if @availablePackers[0]!=nil 
+            packingHash["customer_id"]=@availablePackers[0].id
+        end
+
+        @packingJob = PackingJob.where(shoppingOrder_id: @PackingJobUnatended[0].id)
+    
+        @packing_job = PackingJob.update(packingHash)
+        @packing_job
+
+    end
+
 
 
     
