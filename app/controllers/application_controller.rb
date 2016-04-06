@@ -28,7 +28,9 @@ class ApplicationController < ActionController::Base
         @packing_jobs = PackingJob.all
         @busyPackers=[]
         @packing_jobs.each do |packing_job|
-        if packing_job.customer_id!=nil
+        if packing_job.customer_id == 0
+            
+        elsif packing_job.customer_id!=nil 
              user = User.find(packing_job.customer_id)
              @busyPackers << user
             end
