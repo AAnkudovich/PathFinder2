@@ -4,7 +4,7 @@ class PackingJobsController < ApplicationController
   # GET /packing_jobs
   # GET /packing_jobs.json
   def index
-    @packing_jobs = PackingJob.all
+    @packing_jobs = PackingJob.all.sort { |a,b|  b.created_at <=> a.created_at}
   end
 
   # GET /packing_jobs/1
@@ -43,7 +43,8 @@ class PackingJobsController < ApplicationController
   def update
     respond_to do |format|
       if @packing_job.update(packing_job_params)
-        format.html { redirect_to @packing_job, notice: 'Packing job was successfully updated.' }
+        format.html { redirect_to packing_jobs_url, notice: 'Packing job was successfully updated.' }
+
         format.json { render :show, status: :ok, location: @packing_job }
       else
         format.html { render :edit }
@@ -58,6 +59,7 @@ class PackingJobsController < ApplicationController
     @packing_job.destroy
     respond_to do |format|
       format.html { redirect_to packing_jobs_url, notice: 'Packing job was successfully destroyed.' }
+      # @job=assignToNewJob
       format.json { head :no_content }
     end
   end
