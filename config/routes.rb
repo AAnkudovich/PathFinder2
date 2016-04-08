@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
   resources :shopping_orders
   resources :lineitems
+  # resources :charges
   get 'shop/index'
   get 'shop/floorLayout'
   get 'shop/pathSearch'

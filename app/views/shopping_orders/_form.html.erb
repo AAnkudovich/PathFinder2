@@ -12,9 +12,7 @@
   <% end %>
 
   
-  <div class="field">
-    <%= f.label :payMethod %>
-    <%= f.select :payMethod , ["Debit Card", "Credit Card", "Paypal"] %> </div>
+  
 
     
   <table>
@@ -31,14 +29,37 @@
     <% @total = @total + (litem.item.price*litem.quantity) %>
 </tr>
     <% end %> </table>
+
     <div class="field">
     <strong>Order Total: €</strong>
     <%= f.text_field :total , :value => @total ,:readonly => true%>
   </div>
+  <div class="stripe-button">
+  <%= form_tag  do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <span>Amount: <%= number_to_currency(@total, :unit => '€' )  %></span>
+    </label>
+  </article>
+  <div class="field">
+    <%= f.label :payMethod %>
+    <%= f.select :payMethod , ["Debit Card", "Credit Card"] %> </div>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Shopping order payments"
+          data-amount="<%= @total *100%> "
+          data-currency="EUR"
+          data-locale="auto"
+          ></script>
+<% end %>
+</div>
   
   
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
