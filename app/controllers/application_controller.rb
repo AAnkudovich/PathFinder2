@@ -35,10 +35,17 @@ class ApplicationController < ActionController::Base
              @busyPackers << user
             end
          end 
+         @availablePackers = @busyPackers
+         while @availablePackers.count>@packers.count
+            @availablePackers = @availablePackers.group_by {|n| n}.each {|k,v| v.pop @packers.count(k)}.values.flatten
+          end
+        @availablePackers2=@packers-@availablePackers
+        if @availablePackers2[0]!=nil 
+            packingHash["customer_id"]=@availablePackers2[0].id
+          else
+            @availablePackers2=@availablePackers2+@packers
+            packingHash["customer_id"]=@availablePackers2[0].id
 
-        @availablePackers=@packers-@busyPackers
-        if @availablePackers[0]!=nil 
-            packingHash["customer_id"]=@availablePackers[0].id
         end
     
         @packing_job = PackingJob.create(packingHash)
