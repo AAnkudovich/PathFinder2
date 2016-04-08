@@ -16,4 +16,5 @@ class Lineitem < ActiveRecord::Base
    returningpoints=weightPoints +  fragilePoints + boxPoints
 
     end
+    
 end

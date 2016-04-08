@@ -43,7 +43,7 @@ class LineitemsController < ApplicationController
   def update
     respond_to do |format|
       if @lineitem.update(lineitem_params)
-        format.html { redirect_to @lineitem, notice: 'Lineitem was successfully updated.' }
+        format.html { redirect_to :back}
         format.json { render :show, status: :ok, location: @lineitem }
       else
         format.html { render :edit }
@@ -70,8 +70,9 @@ class LineitemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lineitem_params
-      params.require(:lineitem).permit(:item_id, :shopping_order_id, :cart_id, :quantity)
+      params.require(:lineitem).permit(:item_id, :shopping_order_id, :cart_id, :quantity,:packed)
     end
+    
 
     def sortingMethod(lineitem)
     weightPoints = lineitem.item.weight
@@ -83,7 +84,8 @@ class LineitemsController < ApplicationController
     boxPoints = box.points
 
 
-   returningpoints=weightPoints +  fragilePoints + boxPoints
+   returningpoints=weightPoints -  fragilePoints + boxPoints
 
     end
+    
 end

@@ -48,10 +48,13 @@
         
             <%if current_user.is_admin? %>
             <p>Administrator</p>
+             <%= link_to "Index of Users", users_path , :class => "btn"%>
+             <%= link_to "Packing Jobs", packing_jobs_path, :class => "btn" %>
             <% elsif current_user.is_packer?%>
             <p>Packer</p>
+            <%= link_to "Packing Jobs", packing_jobs_path, :class => "btn" %>
             <% end %> 
-            <%= link_to "show_index_of_users", users_path %>
+           
         <% else %>
         
 

@@ -1,17 +1,21 @@
 <h1>Warehouse shopping (Slideshow into here) </h1>
 <%if !@items.empty?%>
 	<% @items.each do |item| %>
+	<% if item.quantity == 0%>
 	
+
+	<% else %>
 	<h4><%= item.title %></h4>
 	<div class="col-sm-12" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
 		<div class="col-sm-6">
-	<%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg 
+	<%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  
 	</div>
 	<div class="col-sm-6">
 	<%= button_to 'Add to Cart', lineitems_path(item_id: item),:class => "btn btn-success pull-right" %>
 	</div>
 
 	</div>
+	<%end%>
 	<%end%>
 	<% else %>
 	<h2>Our store is currently empty</h2>

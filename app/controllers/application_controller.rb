@@ -28,21 +28,53 @@ class ApplicationController < ActionController::Base
         @packing_jobs = PackingJob.all
         @busyPackers=[]
         @packing_jobs.each do |packing_job|
-        if packing_job.customer_id!=nil
+        if packing_job.customer_id == 0
+            
+        elsif packing_job.customer_id!=nil 
              user = User.find(packing_job.customer_id)
              @busyPackers << user
             end
          end 
+         @availablePackers = @busyPackers
+         while @availablePackers.count>@packers.count
+            @availablePackers = @availablePackers.group_by {|n| n}.each {|k,v| v.pop @packers.count(k)}.values.flatten
+          end
+        @availablePackers2=@packers-@availablePackers
+        if @availablePackers2[0]!=nil 
+            packingHash["customer_id"]=@availablePackers2[0].id
+          else
+            @availablePackers2=@availablePackers2+@packers
+            packingHash["customer_id"]=@availablePackers2[0].id
 
-        @availablePackers=@packers-@busyPackers
-        if @availablePackers[0]!=nil 
-            packingHash["customer_id"]=@availablePackers[0].id
         end
     
         @packing_job = PackingJob.create(packingHash)
         @packing_job
 
     end
+    def assignPackerToNewJob
+        packingHash= Hash.new
+        @PackingJobUnatended = PackingJob.where(customer_id: nil)
+        packingHash["shoppingOrder_id"]=@PackingJobUnatended[0].id
+
+        @packers = User.where(is_packer: true).to_a
+        @busyPackers=[]
+        if packing_job.customer_id!=nil 
+             user = User.find(packing_job.customer_id)
+             @busyPackers << user
+            end
+        @availablePackers=@packers-@busyPackers
+        if @availablePackers[0]!=nil 
+            packingHash["customer_id"]=@availablePackers[0].id
+        end
+
+        @packingJob = PackingJob.where(shoppingOrder_id: @PackingJobUnatended[0].id)
+    
+        @packing_job = PackingJob.update(packingHash)
+        @packing_job
+
+    end
+
 
 
     

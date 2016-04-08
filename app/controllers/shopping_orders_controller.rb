@@ -5,7 +5,7 @@ class ShoppingOrdersController < ApplicationController
   # GET /shopping_orders
   # GET /shopping_orders.json
   def index
-    @shopping_orders = ShoppingOrder.all
+    @shopping_orders = ShoppingOrder.all.sort { |a,b|  b.created_at <=> a.created_at}
     @currentUsersOrders = ShoppingOrder.where(customer_id: current_user.id).to_a
   end
 
@@ -64,7 +64,7 @@ class ShoppingOrdersController < ApplicationController
   def update
     respond_to do |format|
       if @shopping_order.update(shopping_order_params)
-        format.html { redirect_to @shopping_order, notice: 'Shopping order was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Shopping order was successfully updated.' }
         format.json { render :show, status: :ok, location: @shopping_order }
       else
         format.html { render :edit }

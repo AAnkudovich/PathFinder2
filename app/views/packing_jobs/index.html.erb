@@ -1,37 +1,79 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Packing Jobs</h1>
+<h1>Packing Jobs Awaiting Attention</h1>
 
-<table>
+<table style="width:90%;">
   <thead>
     <tr>
-      <th>Assigned Packer</th>
-      <th>Shoppingorder</th>
-      <th colspan="3"></th>
+      <th style="width:20%;">Assigned Packer</th>
+      <th style="width:20%;">Shoppingorder</th>
+      <th style="width:20%;">Order Status</th>
+      <th style="width:20%;"></th>
     </tr>
   </thead>
 
   <tbody>
+    
     <% @packing_jobs.each do |packing_job| %>
-      <tr>
-        <%if packing_job.customer_id!=nil %>
-        <% user = User.find(packing_job.customer_id)%>
+    <% shoppingorder  = ShoppingOrder.find(packing_job.shoppingOrder_id) %>
+      
+      <tr class="<%= shoppingorder.currentStatus %> <%= packing_job.customer_id %> hidden">
+        <%if  packing_job.customer_id ==0 %>
+        <td style="width:20%;">Packing complete</td>
   
-        <td><%= user.name %></td>
-        
+            
+        <% elsif packing_job.customer_id !=nil %>
+        <% user = User.find(packing_job.customer_id)%>
+        <td style="width:20%;"><%= user.name %></td>
             <% else %>
-            <td>No Packer Yet</td>
+            <td style="width:20%;">No Packer Yet</td>
             <% end %>
             
-        <td><%= packing_job.shoppingOrder_id %></td>
-        <td><%= link_to 'Show', packing_job %></td>
-        <td><%= link_to 'Edit', edit_packing_job_path(packing_job) %></td>
-        <td><%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td style="width:20%;"><%= packing_job.shoppingOrder_id %></td>
+        
+        <td style="width:20%;"><%= shoppingorder.currentStatus %></td>
+        <td >
+          <div class="btn-group pull-right">
+        <%= link_to 'Show', packing_job , :class => "btn btn-default" %>
+        <%if current_user.is_admin? %>
+          <%= link_to 'Edit', edit_packing_job_path(packing_job), :class => "btn btn-default"  %>
+          <%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } , :class => "btn btn-danger" %>
+        <%end%>
+      </div>
+      </td>
       </tr>
+    
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Packing job', new_packing_job_path %>
+          <%if current_user.is_admin? %>
+            <p>Administrator view</p>
+            <script  type="text/javascript">
+              jQuery(document).ready(function($) {
+                  
+                  
+                    $(".Shipped").addClass("alert alert-success");
+                    $(".hidden").removeClass("hidden");
+                  
+                  });
+              
+
+              </script>
+             
+            <% else %>
+            <script  type="text/javascript">
+              jQuery(document).ready(function($) {
+                  
+                  
+                   $(".Shipped").addClass("hidden");
+                   $(".<%= current_user.id%>").removeClass("hidden");
+                  
+                  });
+              
+
+              </script>
+            <% end %> 
+
