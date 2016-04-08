@@ -2,6 +2,10 @@
 
 <img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1459951250/order_online_fudfae.jpg" />
 <h1>Listing Shopping Orders</h1>
+<ul class="nav nav-tabs ">
+               <li class="active"><a id="processing_select">Processing Orders</a></li>
+                <li><a id="completed_select">Completed Orders</a></li>
+            </ul>
 
 <table style="width:90%;">
   <thead>
@@ -18,7 +22,7 @@
     <%if current_user.is_admin? %>
             <p>Administrator View</p>
             <% @shopping_orders.each do |shopping_order| %>
-                <tr>
+                <tr class="<%= shopping_order.currentStatus %>">
                   <td style="width:20%;"><%= shopping_order.customer_id %></td>
                   <td style="width:20%;"><%= shopping_order.payMethod %></td>
                   <td style="width:20%;"><%= shopping_order.total %></td>
@@ -44,10 +48,10 @@
               </tr>
             <% end %>
             <% else %>
-            <p>Your previous orders</p>
+           
 
             <% @currentUsersOrders.each do |shopping_order| %>
-              <tr>
+              <tr class="<%= shopping_order.currentStatus %>">
                 <td style="width:20%;"><%= shopping_order.customer_id %></td>
                 <td style="width:20%;"><%= shopping_order.payMethod %></td>
                 <td style="width:20%;"><%= shopping_order.total %></td>
@@ -64,4 +68,27 @@
 
 <br>
 
-<%= link_to 'New Shopping order', new_shopping_order_path %>
+<script  type="text/javascript">
+  jQuery(document).ready(function($) {
+      $(".Shipped").addClass("hidden");
+
+      $( "#completed_select" ).click(function() {
+        $(".active").removeClass("active");
+        $("#completed_select").parents("li:first").addClass("active");
+        $(".Shipped").removeClass("hidden");
+        $(".Submited").addClass("hidden");
+        $(".Currently.Packing").addClass("hidden");
+      });
+      $( "#processing_select" ).click(function() {
+        $(".active").removeClass("active");
+        $("#processing_select").parents("li:first").addClass("active");
+        $(".Shipped").addClass("hidden");
+        $(".Submited").removeClass("hidden");
+        $(".Currently.Packing").removeClass("hidden");
+      });
+
+
+      });
+
+  </script>
+
