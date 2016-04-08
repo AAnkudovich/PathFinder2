@@ -14,6 +14,7 @@
 <p>
   <strong>Packer :</strong>
 
+
   <% if @packing_job.customer_id==0%>
   	Packing is complete
 
@@ -32,30 +33,37 @@
 			    <%= f.submit "Start the packing", :class => "btn btn-success not-yet-shipped hidden" %>
 			  </div>
 			<% end %>
+
 			<% else %>
+			<div class="alert alert-warning text-center">
+	<h4>Items are Orderd for optimal packing please stay with the order that is shown (follow by Index for Packing)</h4>
+	<h6>The larger/heavier/non-fragile items will be shown on the top as they are first to be packed</h6>
+</div>
+
 
 <table>
 	<tr>
+		<th>Index for Packing</th>
 		<th>Quantity</th>
 		<th style="padding-left:20px; padding-right:20px;">Title</th>
 		<th></th>
-		<th>Packing Order Index</th>
+		
 		
 	</tr>
+<%counter=0%>
 <% @packingitems=@shopping_order.lineitems.sort {|a,b| b.sortingMethod(b)  <=> a.sortingMethod(a)}%>
 <% @packingitems.each do |litem| %> 
 <tr>
+	<%counter+=1%>
+	<% location = Location.find(litem.item.locationId) %>
+	<td> <%= counter %> <i style= "padding: 7px;" class=" <%= location.lat%>-<%=location.lon%>-glass fa fa-search"></i></td>
 
 <td><%= litem.quantity %> &times;</td>
  <td style="padding-left:20px; padding-right:20px;">
   <%= litem.item.title %>
  </td> 
-<td>
-  <%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %>
-</td>
-<td class="text-center">
-	<%= litem.sortingMethod(litem) %>
-</td>
+
+<td style= "padding-right: 20px;"><%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %></td>
 <td>
 	<% if litem.packed %>
 	<strong>Packed</strong>
@@ -65,10 +73,10 @@
 			<%= form_for(litem) do |f| %>
 			<%= f.hidden_field :packed , :value => '1' %>
 			<div class="actions">
-			    <%= f.submit "Processed", :class => "btn btn-primary not-yet-processed" %>
+			    <%= f.submit "Pack Item", :class => "btn btn-primary not-yet-processed disabled" %>
 			  </div>
 			<% end %>
-		<% location = Location.find(litem.item.locationId) %>
+		
 <% itemDis = Item.find(litem.item_id) %>
 
 <script  type="text/javascript">
@@ -78,6 +86,10 @@
       $(str).css({"background-color": "green"});
       $(str).click(function() {
         alert(' Item Name: <%= litem.item.title %>' + "\n" + "Item Quantity: " +  <%= litem.quantity %> + "\n" + "Item Weight: " +  <%= litem.item.weight %>);
+      });
+      strglass =str + "-glass";
+      $(strglass).click(function() {
+        $(str).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
       });
       });
 	
@@ -120,6 +132,8 @@
 		$( ".not-yet-shipped" ).removeClass("hidden");
 		
 	}
+
+	$( ".not-yet-processed:first" ).removeClass("disabled");
 });
 
 	</script>
