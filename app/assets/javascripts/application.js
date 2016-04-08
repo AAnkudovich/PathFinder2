@@ -22,4 +22,6 @@ jQuery(document).ready(function($) {
 	if ($(".notice").is(':empty')){
 	$(".notice").addClass("hidden");
 	}
+
+	$("#packing_job_customer_id").addClass("form-control");
 });

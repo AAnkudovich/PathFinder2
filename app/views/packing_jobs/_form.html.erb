@@ -13,11 +13,13 @@
 
   <div class="field">
     <%= f.label :customer_id %><br>
-    <%= f.number_field :customer_id %>
+    <% @packers = User.where(is_packer: true).to_a%>
+    <%= f.collection_select(:customer_id, @packers, :id, :name, :prompt => 'Select') %>
   </div>
   <div class="field">
+   
     <%= f.label :shoppingOrder_id %><br>
-    <%= f.number_field :shoppingOrder_id %>
+    <%= f.number_field :shoppingOrder_id , :class => "form-control"%>
   </div>
   <div class="actions">
     <%= f.submit %>
