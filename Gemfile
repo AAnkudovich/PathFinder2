@@ -31,6 +31,7 @@ gem 'font-awesome-sass'
 # Prawn pdf
 gem 'prawn'
 gem 'prawn-table'
+gem 'stripe'
 
 
 # Use ActiveModel has_secure_password
