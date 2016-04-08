@@ -16,9 +16,9 @@
 //= require_tree .
 jQuery(document).ready(function($) {
       
-	if ($(".alert").is(':empty')){
-	$(".alert").addClass("hidden");
-	}
+	// if ($(".alert").is(':empty')){
+	// $(".alert").addClass("hidden");
+	// }
 	if ($(".notice").is(':empty')){
 	$(".notice").addClass("hidden");
 	}
