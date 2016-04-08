@@ -4,7 +4,7 @@ class PackingJobsController < ApplicationController
   # GET /packing_jobs
   # GET /packing_jobs.json
   def index
-    @packing_jobs = PackingJob.all.sort { |a,b|  b.created_at <=> a.created_at}
+    @packing_jobs = PackingJob.all.sort { |a,b| a.created_at <=> b.created_at }
   end
 
   # GET /packing_jobs/1
