@@ -13,9 +13,11 @@
   </thead>
 
   <tbody>
+    
     <% @packing_jobs.each do |packing_job| %>
     <% shoppingorder  = ShoppingOrder.find(packing_job.shoppingOrder_id) %>
-      <tr class="<%= shoppingorder.currentStatus %>">
+      
+      <tr class="<%= shoppingorder.currentStatus %> <%= packing_job.customer_id %> hidden">
         <%if  packing_job.customer_id ==0 %>
         <td style="width:20%;">Packing complete</td>
   
@@ -40,6 +42,7 @@
       </div>
       </td>
       </tr>
+    
     <% end %>
   </tbody>
 </table>
@@ -53,6 +56,7 @@
                   
                   
                     $(".Shipped").addClass("alert alert-success");
+                    $(".hidden").removeClass("hidden");
                   
                   });
               
@@ -65,11 +69,11 @@
                   
                   
                    $(".Shipped").addClass("hidden");
+                   $(".<%= current_user.id%>").removeClass("hidden");
                   
                   });
               
 
               </script>
             <% end %> 
-
 
