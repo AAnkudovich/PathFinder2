@@ -11,6 +11,7 @@
 		<div class="col-sm-9">
 			<div class="form-group">
 				<div class="col-sm-8">
+				<img src="<%= item.image %>" style="width:20px; heigth: 20px;">
 				<%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  </div>
 				<div class="col-sm-4">
 				<input type="number" id="quantity" style="width:40%" class=" text-center form-control bfh-number pull-right" value="1" min="1" name="customQuantity">
@@ -60,6 +61,17 @@
 			</div>
 
 <% end %>
-	
+
+<div class="col-sm-12" style="padding-right:0;">
+	<hr>
+<h3>Browse by category</h3>	
+<% @categories = Category.all%>
+<% @categories.each do |category| %>
+      <tr>
+        <td><%= link_to category.name , category%></td>
+        
+      </tr>
+    <% end %>
+	</div>
 </div>
 

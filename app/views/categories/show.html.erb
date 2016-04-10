@@ -1,0 +1,91 @@
+<%if current_user && current_user.is_admin? %>
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
+<%end%>
+<h1>Warehouse shopping (Slideshow into here) </h1>
+<div class="col-sm-9">
+<%if !@items.empty?%>
+  <% @items.each do |item| %>
+  <% if item.quantity == 0%>
+  
+
+  <% else %>
+  <h4><%= item.title %></h4>
+  <div class="col-sm-12" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
+    <div class="col-sm-9">
+      <div class="form-group">
+        <div class="col-sm-8">
+        <img src="<%= item.image %>" style="width:20px; heigth: 20px;">
+        <%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  </div>
+        <div class="col-sm-4">
+        <input type="number" id="quantity" style="width:40%" class=" text-center form-control bfh-number pull-right" value="1" min="1" name="customQuantity">
+        
+        
+
+            <!-- data-max="item.quantity" -->
+            
+          </div>
+          </div>
+  
+
+  </div>
+  <div class="col-sm-3">
+  <%= button_to 'Add to Cart', lineitems_path(item_id: item),:class => "btn btn-success pull-right" %>
+  </div>
+  
+
+  </div>
+  <%end%>
+  <%end%>
+  <% else %>
+  <h2>Our store is currently empty</h2>
+  <% end %>
+</div>
+<div class="col-sm-3">  
+  
+  <% if session[:cart_id]!=nil%>
+  <h3>Your Current cart</h3>
+  <% @cart = Cart.find(session[:cart_id])
+   @total = 0
+    @cart.lineitems.each do |litem| %> 
+    
+      <p><%= litem.quantity %> &times; <%= litem.item.title %> <%= number_to_currency(litem.item.price, :unit => '€' )  %> <%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-times "></i> </p>
+      <% end %>
+      <% @total = @total + (litem.item.price* litem.quantity)%>
+    
+    <% end %> 
+    <hr>
+
+    <h5 class="pull-right">Total in Basket: <strong><%= number_to_currency(@total, :unit => '€' )%></strong></h5>
+    
+    <div class="btn-group pull-right">
+      <%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
+      <%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+      </div>
+
+<% end %>
+
+<div class="col-sm-12" style="padding-right:0;">
+  <hr>
+<h3>Browse by category</h3> 
+<% @categories = Category.all%>
+<% @categories.each do |category| %>
+      <ul>
+        <li><%= link_to category.name , category%></li>
+        
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<script>
+jQuery(document).ready(function($) {
+      $('li').find('a:contains("<%= @category.name %>")').parent().addClass("alert alert-success");
+      });
+
+
+
+
+</script>
+
