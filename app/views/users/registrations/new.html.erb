@@ -26,7 +26,7 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
   <div><%= f.label :date_of_birth %><br />
-        <%= f.date_select :date_of_birth %>
+        <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916%>
     </div>
     <hr>
 

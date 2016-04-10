@@ -15,6 +15,7 @@ class LineitemsController < ApplicationController
   # GET /lineitems/new
   def new
     @lineitem = Lineitem.new
+    @quantity = params[:customQuantity]
   end
 
   # GET /lineitems/1/edit
@@ -29,7 +30,7 @@ class LineitemsController < ApplicationController
     @lineitem = @cart.addItem(item.id)
     respond_to do |format| 
       if @lineitem.save
-      format.html { redirect_to @cart, notice: 'Line item was successfully created.' }
+      format.html { redirect_to :back, notice: 'Item added to basket.' }
       format.json { render action: 'show', status: :created, location: @lineitem } 
     else
       format.html { render action: 'new' }
