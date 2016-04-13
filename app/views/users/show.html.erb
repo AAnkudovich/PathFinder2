@@ -4,3 +4,65 @@
 <%= @user.is_admin %><br>
 <%= @user.is_packer %><br>
 <%= link_to 'Edit', edit_user_path(@user) %>
+<h1>Shopping orders</h1>
+<table>
+<% @currentUsersOrders.each do |shopping_order| %>
+              <tr class="<%= shopping_order.currentStatus %>">
+                <td style="width:20%;"><%= shopping_order.customer_id %></td>
+                <td style="width:20%;"><%= shopping_order.payMethod %></td>
+                <td style="width:20%;"><%= shopping_order.total %></td>
+                <td style="width:20%;"><%= shopping_order.currentStatus %></td>
+                
+                <td style="width:20%;"><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                
+              </tr>
+            <% end %>
+        </table>
+
+        <%if @user.is_packer%>
+        <h1>Packing jobs</h1>
+        <table style="width:90%;">
+  <thead>
+    <tr>
+      <th style="width:20%;">Assigned Packer</th>
+      <th style="width:20%;">Shoppingorder</th>
+      <th style="width:20%;">Order Status</th>
+      <th style="width:20%;"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    <% @currentPackingJobs.each do |packing_job| %>
+    <% shoppingorder  = ShoppingOrder.find(packing_job.shoppingOrder_id) %>
+      
+      <tr class="<%= shoppingorder.currentStatus %> <%= packing_job.customer_id %> ">
+        <%if  packing_job.customer_id ==0 %>
+        <td style="width:20%;">Packing complete</td>
+  
+            
+        <% elsif packing_job.customer_id !=nil %>
+        <% user = User.find(packing_job.customer_id)%>
+        <td style="width:20%;"><%= user.name %></td>
+            <% else %>
+            <td style="width:20%;">No Packer Yet</td>
+            <% end %>
+            
+        <td style="width:20%;"><%= packing_job.shoppingOrder_id %></td>
+        
+        <td style="width:20%;"><%= shoppingorder.currentStatus %></td>
+        <td >
+          <div class="btn-group pull-right">
+        <%= link_to 'Show', packing_job , :class => "btn btn-default" %>
+        <%if current_user.is_admin? %>
+          <%= link_to 'Edit', edit_packing_job_path(packing_job), :class => "btn btn-default"  %>
+          <%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } , :class => "btn btn-danger" %>
+        <%end%>
+      </div>
+      </td>
+      </tr>
+    
+    <% end %>
+  </tbody>
+</table>
+        <%end%>
