@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Title</th>
       <th>Description</th>
       <th>Price</th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
+        <td><img src="<%= item.image %>" style="width:20px; heigth: 20px;"></td>
         <td><%= item.title %></td>
         <td><%= item.description %></td>
         <td><%= item.price %></td>

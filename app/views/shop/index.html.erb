@@ -1,4 +1,5 @@
 <h1>Warehouse shopping (Slideshow into here) </h1>
+<div class="col-sm-9">
 <%if !@items.empty?%>
 	<% @items.each do |item| %>
 	<% if item.quantity == 0%>
@@ -7,12 +8,33 @@
 	<% else %>
 	<h4><%= item.title %></h4>
 	<div class="col-sm-12" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
-		<div class="col-sm-6">
-	<%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  
+		<div class="col-sm-9">
+			<div class="form-group">
+				<div class="col-sm-8">
+				<img src="<%= item.image %>" style="width:20px; heigth: 20px;">
+				<%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  </div>
+				
+				
+    		
+  
+<%= form_for(@lineitem) do |f| %>
+  
+
+  <div class="field">
+    <%= f.hidden_field :item_id, :value =>  item.id   %>
+  </div>
+  
+  
+  <div class="col-sm-4">
+    <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => item.quantity%>
+  </div>
+  	</div>
+
 	</div>
-	<div class="col-sm-6">
-	<%= button_to 'Add to Cart', lineitems_path(item_id: item),:class => "btn btn-success pull-right" %>
+	<div class="col-sm-3">
+	<%= f.submit 'Add to Cart',:class => "btn btn-success pull-right" %>
 	</div>
+	<% end %>
 
 	</div>
 	<%end%>
@@ -20,3 +42,42 @@
 	<% else %>
 	<h2>Our store is currently empty</h2>
 	<% end %>
+</div>
+<div class="col-sm-3">	
+	
+	<% if session[:cart_id]!=nil%>
+	<h3>Your Current cart</h3>
+	<% @cart = Cart.find(session[:cart_id])
+	 @total = 0
+	  @cart.lineitems.each do |litem| %> 
+		
+			<p><%= litem.quantity %> &times; <%= litem.item.title %> <%= number_to_currency(litem.item.price, :unit => '€' )  %> <%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
+				<i class="fa fa-times "></i> </p>
+			<% end %>
+			<% @total = @total + (litem.item.price* litem.quantity)%>
+		
+		<% end %> 
+		<hr>
+
+		<h5 class="pull-right">Total in Basket: <strong><%= number_to_currency(@total, :unit => '€' )%></strong></h5>
+		
+		<div class="btn-group pull-right">
+			<%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
+			<%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+			</div>
+
+<% end %>
+
+<div class="col-sm-12" style="padding-right:0;">
+	<hr>
+<h3>Browse by category</h3>	
+<% @categories = Category.all%>
+<% @categories.each do |category| %>
+      <ul>
+        <li><%= link_to category.name , category%></li>
+        
+      </ul>
+    <% end %>
+	</div>
+</div>
+

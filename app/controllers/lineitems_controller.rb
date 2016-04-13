@@ -15,6 +15,7 @@ class LineitemsController < ApplicationController
   # GET /lineitems/new
   def new
     @lineitem = Lineitem.new
+    
   end
 
   # GET /lineitems/1/edit
@@ -24,12 +25,17 @@ class LineitemsController < ApplicationController
   # POST /lineitems
   # POST /lineitems.json
   def create
+    @lineitem = Lineitem.new(lineitem_params)
     @cart = current_cart
-    item = Item.find(params[:item_id]) 
-    @lineitem = @cart.addItem(item.id)
+    item = Item.find(lineitem_params[:item_id]) 
+    @quantityremaining = item.quantity - @lineitem.quantity
+    itemHash= Hash.new
+    itemHash["quantity"]=@quantityremaining
+    item.update(itemHash)
+    @lineitem = @cart.addItem(item.id,@lineitem.quantity)
     respond_to do |format| 
       if @lineitem.save
-      format.html { redirect_to @cart, notice: 'Line item was successfully created.' }
+      format.html { redirect_to :back, notice: 'Item added to basket.' }
       format.json { render action: 'show', status: :created, location: @lineitem } 
     else
       format.html { render action: 'new' }
@@ -55,6 +61,11 @@ class LineitemsController < ApplicationController
   # DELETE /lineitems/1
   # DELETE /lineitems/1.json
   def destroy
+    item = Item.find(@lineitem.item_id) 
+    @quantityremaining = item.quantity + @lineitem.quantity
+    itemHash= Hash.new
+    itemHash["quantity"]=@quantityremaining
+    item.update(itemHash)
     @lineitem.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Lineitem was successfully destroyed.' }

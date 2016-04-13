@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :categories
   resources :boxes
   resources :packing_jobs
   resources :locations

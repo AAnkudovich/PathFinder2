@@ -1,7 +1,7 @@
 class ShopController < ApplicationController
   def index
   	@items = Item.order("title asc").all
-
+    @lineitem = Lineitem.new
   end
   def floorLayout
   	@locations = Location.all

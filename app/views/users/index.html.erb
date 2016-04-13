@@ -1,5 +1,41 @@
+<ul class="nav nav-tabs " style="margin-bottom:20px;">
+               <li class="active"><a id="customers_select">Customers</a></li>
+                <li><a id="packers_select">Packers</a></li>
+            </ul>
+<table>
+	<tr>
+		<th style="width:20%;">Name</th>
+		<th style="width:20%;">Email</th>
+		<th style="width:20%;">Last sign in</th>
+	</tr>
 <% @users.each do |user| %>
-<%= link_to user.email, user %>
-<span style="color:red;"><%= user.name %></span>
-<%= user.email %><br>
+<tr class="<%= user.is_packer %> " <% if user.is_admin %> style="display:none;" <%end%>>
+<td><%= link_to user.name, user %></td>
+<td><%= mail_to user.email %></td>
+<td><%= user.last_sign_in_at %></td>
+</tr>
+</tr>
 <% end %>
+</table>
+
+<script  type="text/javascript">
+  jQuery(document).ready(function($) {
+      $(".true").addClass("hidden");
+
+      $( "#packers_select" ).click(function() {
+        $(".active").removeClass("active");
+        $("#packers_select").parents("li:first").addClass("active");
+        $(".true").removeClass("hidden");
+        $(".false").addClass("hidden");
+      });
+      $( "#customers_select" ).click(function() {
+        $(".active").removeClass("active");
+        $("#customers_select").parents("li:first").addClass("active");
+        $(".true").addClass("hidden");
+        $(".false").removeClass("hidden");
+      });
+
+
+      });
+
+  </script>
