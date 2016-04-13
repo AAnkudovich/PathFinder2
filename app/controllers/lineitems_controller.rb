@@ -28,6 +28,10 @@ class LineitemsController < ApplicationController
     @lineitem = Lineitem.new(lineitem_params)
     @cart = current_cart
     item = Item.find(lineitem_params[:item_id]) 
+    @quantityremaining = item.quantity - @lineitem.quantity
+    itemHash= Hash.new
+    itemHash["quantity"]=@quantityremaining
+    item.update(itemHash)
     @lineitem = @cart.addItem(item.id,@lineitem.quantity)
     respond_to do |format| 
       if @lineitem.save
