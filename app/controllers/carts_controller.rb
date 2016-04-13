@@ -54,6 +54,14 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
+    @cart.lineitems.each do |litem| 
+      item = Item.find(litem.item_id) 
+      @quantityremaining = item.quantity + litem.quantity
+      itemHash= Hash.new
+      itemHash["quantity"]=@quantityremaining
+      item.update(itemHash)
+      litem.destroy
+    end
     @cart.destroy
     respond_to do |format|
       format.html { redirect_to root_url, notice: 'Cart was successfully destroyed.' }

@@ -61,6 +61,11 @@ class LineitemsController < ApplicationController
   # DELETE /lineitems/1
   # DELETE /lineitems/1.json
   def destroy
+    item = Item.find(@lineitem.item_id) 
+    @quantityremaining = item.quantity + @lineitem.quantity
+    itemHash= Hash.new
+    itemHash["quantity"]=@quantityremaining
+    item.update(itemHash)
     @lineitem.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Lineitem was successfully destroyed.' }
