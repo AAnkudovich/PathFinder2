@@ -3,7 +3,10 @@
 <%= @user.date_of_birth %><br>
 <%= @user.is_admin %><br>
 <%= @user.is_packer %><br>
+<%= @user.address %><br>
+<%= @user.distance_to("DIT Aungier Street Dublin")%>
 <%= link_to 'Edit', edit_user_path(@user) %>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@user.latitude}%2C#{@user.longitude}" %>
 <h1>Shopping orders</h1>
 <table>
 <% @currentUsersOrders.each do |shopping_order| %>

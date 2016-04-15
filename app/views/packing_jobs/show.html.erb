@@ -26,7 +26,8 @@
 	
 
 <% @shopping_order = ShoppingOrder.find(@packing_job.shoppingOrder_id)%>
-<%if @shopping_order.currentStatus == 'Submited'%>
+<% @currentuser = User.find(current_user.id)%>
+<%if @shopping_order.currentStatus == 'Submited' && !current_user.is_admin? %>
 <%= form_for(@shopping_order) do |f| %>
 <%= f.hidden_field :currentStatus , :value => 'Currently Packing' %>
 			<div class="actions">

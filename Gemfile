@@ -32,6 +32,7 @@ gem 'font-awesome-sass'
 gem 'prawn'
 gem 'prawn-table'
 gem 'stripe'
+gem 'geocoder'
 
 
 # Use ActiveModel has_secure_password
