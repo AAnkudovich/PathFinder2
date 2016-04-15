@@ -45,9 +45,11 @@ class ShoppingOrdersController < ApplicationController
 
     respond_to do |format|
       if @shopping_order.save
+        
+        @packing_job=createAPackingJob(@shopping_order.id)
+        @shipping_job=createAshippingManifest(@shopping_order.id)
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        @packing_job=createAPackingJob(@shopping_order.id)
         format.html { redirect_to root_path, notice: 'Thank you for your order' }
         UserMailer.created_order_email(current_user).deliver
         format.json { render :show, status: :created, location: @shopping_order }

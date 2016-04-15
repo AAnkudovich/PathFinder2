@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dateOut: 2016-04-15
+  shoppingOrder_id: 1
+  shippingStatus: MyString
+  vanID: 1
+
+two:
+  dateOut: 2016-04-15
+  shoppingOrder_id: 1
+  shippingStatus: MyString
+  vanID: 1

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dateout:</strong>
+  <%= @shipping_manifest.dateOut %>
+</p>
+
+<p>
+  <strong>Shoppingorder:</strong>
+  <%= @shipping_manifest.shoppingOrder_id %>
+</p>
+
+<p>
+  <strong>Shippingstatus:</strong>
+  <%= @shipping_manifest.shippingStatus %>
+</p>
+
+<p>
+  <strong>Vanid:</strong>
+  <%= @shipping_manifest.vanID %>
+</p>
+
+<% @shoppingorder = ShoppingOrder.find(@shipping_manifest.shoppingOrder_id) %>
+<% @customer = User.find(@shoppingorder.customer_id)%>
+<h2>Delivering to: <strong><%= @customer.name %></strong></h2>
+<h4>At: <strong><%= @customer.address %></strong></h4>
+<h4> Travel distance: <%= @customer.distance_to("DIT Aungier Street Dublin")%></h4>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@customer.latitude}%2C#{@customer.longitude}" %>
+<%= link_to 'Edit', edit_shipping_manifest_path(@shipping_manifest) %> |
+<%= link_to 'Back', shipping_manifests_path %>

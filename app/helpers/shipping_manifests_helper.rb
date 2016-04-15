@@ -1,0 +1,2 @@
+module ShippingManifestsHelper
+end

@@ -1,0 +1,33 @@
+<%= form_for(@shipping_manifest) do |f| %>
+  <% if @shipping_manifest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shipping_manifest.errors.count, "error") %> prohibited this shipping_manifest from being saved:</h2>
+
+      <ul>
+      <% @shipping_manifest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dateOut %><br>
+    <%= f.date_select :dateOut %>
+  </div>
+  <div class="field">
+    <%= f.label :shoppingOrder_id %><br>
+    <%= f.number_field :shoppingOrder_id %>
+  </div>
+  <div class="field">
+    <%= f.label :shippingStatus %><br>
+    <%= f.text_field :shippingStatus %>
+  </div>
+  <div class="field">
+    <%= f.label :vanID %><br>
+    <%= f.number_field :vanID %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

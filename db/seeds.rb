@@ -96,6 +96,14 @@ Category.create(name:'Food')
 Category.create(name:'Building Supplies')
 Category.create(name: 'Technology Accessories')
 Category.create(name: 'Home and Garden')
+
+# vans
+Van.create(regPlate: '161D1')
+Van.create(regPlate: '161D2')
+Van.create(regPlate: '161D3')
+Van.create(regPlate: '161D4')
+Van.create(regPlate: '161D5')
+Van.create(regPlate: '161D6')
 # Shelves
 Location.create(lat: '1', lon: '2')
 Location.create(lat: '1', lon: '3')

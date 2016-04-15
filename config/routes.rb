@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :vans
+  resources :shipping_manifests
   resources :categories
   resources :boxes
   resources :packing_jobs
