@@ -46,7 +46,7 @@
       <div class="btn-group session-control-buttons navbar-right">
         <% if user_signed_in? %> 
         <a href="/users/sign_out" class="btn btn-default">Sign out</a>
-        <%= link_to 'Edit Profile',edit_user_registration_path,:class => "btn btn-success pull-right" %>
+        <a href="/users/<%= current_user.id %>/edit/" class="btn btn-default">Edit Your profile</a>
         
             <%if current_user.is_admin? %>
             <p>Administrator</p>

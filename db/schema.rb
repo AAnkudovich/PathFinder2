@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 20160410223614) do
   create_table "items", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.decimal  "price",                     precision: 10
+    t.float    "price",       limit: 2
     t.integer  "quantity",    limit: 4
     t.integer  "locationId",  limit: 4
     t.integer  "boxId",       limit: 4
     t.boolean  "fragile"
-    t.decimal  "weight",                    precision: 10
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.float    "weight",      limit: 2
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "categoryID",  limit: 4
     t.string   "image",       limit: 255
   end
@@ -95,6 +95,9 @@ ActiveRecord::Schema.define(version: 20160410223614) do
     t.string   "name",                   limit: 255
     t.datetime "date_of_birth"
     t.boolean  "is_female",                          default: false
+    t.string   "address",                limit: 255
+    t.float    "latitude",               limit: 24
+    t.float    "longitude",              limit: 24
     t.boolean  "is_admin",                           default: false
     t.boolean  "is_packer",                          default: false
   end

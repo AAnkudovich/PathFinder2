@@ -3,12 +3,12 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
       t.string :title
       t.text :description
-      t.decimal :price
+      t.float :price
       t.integer :quantity
       t.integer :locationId
       t.integer :boxId
       t.boolean :fragile
-      t.decimal :weight
+      t.float :weight
 
       t.timestamps null: false
     end

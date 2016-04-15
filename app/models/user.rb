@@ -5,5 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :shopping_orders, dependent: :destroy
   has_many :packing_jobs
+  geocoded_by :address, :units => :km
+  after_validation :geocode, :if => :address_changed?
   
 end
