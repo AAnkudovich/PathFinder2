@@ -41,7 +41,38 @@ class VansController < ApplicationController
   # PATCH/PUT /vans/1.json
   def update
     respond_to do |format|
+      if @van.regPlate == van_params["regPlate"]
+        # first point
+        @current_shipping_manifests = ShippingManifest.where(shippingstatus: "Packed ready to ship").where(vanID: nil).sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+        shippingHash = Hash.new
+        shippingHash["vanID"]=@van.id
+        shippingHash["shippingStatus"]="Shipping"
+        @current_shipping_manifests[0].update(shippingHash)
+        @firstShoppingOrder = ShoppingOrder.find(@current_shipping_manifests[0].shoppingOrder_id)
+        @first_location_user = User.find(@firstShoppingOrder.customer_id)
+        # remaining 6 spots
+        @following_shipping_manifests = ShippingManifest.where(shippingstatus: "Packed ready to ship").where(vanID: nil).sort {|a,b|  a.findDistanceForNextStop(@first_location_user.address,a.id)<=>b.findDistanceForNextStop(@first_location_user.address,b.id) }
+        followingshippingHash = Hash.new
+        followingshippingHash["vanID"]=@van.id
+        followingshippingHash["shippingStatus"]="Shipping"
+        if @following_shipping_manifests.length > 7
+          @following_shipping_manifests[0].update(followingshippingHash)
+          @following_shipping_manifests[1].update(followingshippingHash)
+          @following_shipping_manifests[2].update(followingshippingHash)
+          @following_shipping_manifests[3].update(followingshippingHash)
+          @following_shipping_manifests[4].update(followingshippingHash)
+          @following_shipping_manifests[5].update(followingshippingHash)
+          @following_shipping_manifests[6].update(followingshippingHash)
+        else
+          @following_shipping_manifests.each do |shippingMan|
+            shippingMan.update(followingshippingHash)
+          end
+        end
+
+      end
       if @van.update(van_params)
+        
+        
         format.html { redirect_to @van, notice: 'Van was successfully updated.' }
         format.json { render :show, status: :ok, location: @van }
       else

@@ -13,31 +13,104 @@
       <th>Dateout</th>
       <th>Shoppingorder</th>
       <th>Shippingstatus</th>
-      <th>Vanid</th>
-      <th>Distance to Travel</th>
+      <th class="Packed ready to ship">Vanid</th>
+      <th class="Packed ready to ship">Distance to Travel</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @shipping_manifests.each do |shipping_manifest| %>
+    
+
+    
+      <% @old_shipping_manifests.each do |shipping_manifest| %>
       <tr class="<%= shipping_manifest.shippingStatus %>">
         <td><%= shipping_manifest.dateOut %></td>
         <td><%= shipping_manifest.shoppingOrder_id %></td>
         <td><%= shipping_manifest.shippingStatus %></td>
         <td><%= shipping_manifest.vanID %></td>
-        <td><strong><%= shipping_manifest.findDistanceForDelivery(shipping_manifest.id) %><strong></td>
         <%if current_user.is_admin?%>
         <td><%= link_to 'Show', shipping_manifest %></td>
         <td><%= link_to 'Edit', edit_shipping_manifest_path(shipping_manifest) %></td>
         <td><%= link_to 'Destroy', shipping_manifest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
+      <%end%>
+      
+      <% @future_shipping_manifests.each do |shipping_manifest| %>
+      <tr class="<%= shipping_manifest.shippingStatus %>">
+        <td><%= shipping_manifest.dateOut %></td>
+        <td><%= shipping_manifest.shoppingOrder_id %></td>
+        <td><%= shipping_manifest.shippingStatus %></td>
+        <td><%= shipping_manifest.vanID %></td>
+        <%if current_user.is_admin?%>
+        <td><%= link_to 'Show', shipping_manifest %></td>
+        <td><%= link_to 'Edit', edit_shipping_manifest_path(shipping_manifest) %></td>
+        <td><%= link_to 'Destroy', shipping_manifest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+      <%end%>
+      <% @current_shipping_manifests.each do |shipping_manifest| %>
+      <tr class="<%= shipping_manifest.shippingStatus %>">
+        <td><%= shipping_manifest.dateOut %></td>
+        <td class="text-center"><%= shipping_manifest.shoppingOrder_id %></td>
+        <td><%= shipping_manifest.shippingStatus %></td>
+        <td><%= shipping_manifest.vanID %></td>
+        <td><strong><%= shipping_manifest.findDistanceForDelivery(shipping_manifest.id).round(2) %><strong></td>
+        <%if current_user.is_admin?%>
+        <td><%= link_to 'Show', shipping_manifest %></td>
+        <td><%= link_to 'Edit', edit_shipping_manifest_path(shipping_manifest) %></td>
+        <td><%= link_to 'Destroy', shipping_manifest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+      <%end%>
+  </tbody>
+</table>
+
+<br>
+<!-- fill the van -->
+<p id="notice"><%= notice %></p>
+
+<h1>Assign to vehicle which will perform delivery</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Regplate</th>
+      <th>Current Load</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vans.each do |van| %>
+      <tr>
+        <td><%= van.regPlate %></td>
+        <td><% @vans_shipping_manifests = ShippingManifest.where(vanID: van.id) 
+        counter=0
+          @vans_shipping_manifests.each do |shipping_manifest| 
+            counter = counter+1
+          end
+        %>
+        <%= counter%> Orders</td>
+
+        <td>
+        <%= form_for(van) do |f| %>
+          <%= f.hidden_field :regPlate, :value =>  van.regPlate %>
+            
+              <%= f.submit "Fill the van" , :class => "btn btn-success"  %>
+            
+          <% end %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+
+
 
 <script  type="text/javascript">
   jQuery(document).ready(function($) {

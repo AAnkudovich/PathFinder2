@@ -4,18 +4,25 @@ class ShippingManifestsController < ApplicationController
   # GET /shipping_manifests
   # GET /shipping_manifests.json
   def index
-    @shipping_manifests = ShippingManifest.all.sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+    # @shipping_manifests = ShippingManifest.all.sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+    @old_shipping_manifests = ShippingManifest.where(shippingstatus: "Delivered")
+    @future_shipping_manifests = ShippingManifest.where(shippingstatus: "Waiting to be packed")
+    @current_shipping_manifests = ShippingManifest.where.not(shippingstatus: "Waiting to be packed").where.not(shippingstatus: "Delivered").sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+
+    @vans = Van.all
     
   end
 
   # GET /shipping_manifests/1
   # GET /shipping_manifests/1.json
   def show
+    
   end
 
   # GET /shipping_manifests/new
   def new
     @shipping_manifest = ShippingManifest.new
+
   end
 
   # GET /shipping_manifests/1/edit
