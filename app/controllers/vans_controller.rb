@@ -44,6 +44,7 @@ class VansController < ApplicationController
       if @van.regPlate == van_params["regPlate"]
         # first point
         @current_shipping_manifests = ShippingManifest.where(shippingstatus: "Packed ready to ship").where(vanID: nil).sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+        if @current_shipping_manifests[0] != nil
         shippingHash = Hash.new
         shippingHash["vanID"]=@van.id
         shippingHash["shippingStatus"]="Shipping"
@@ -68,12 +69,13 @@ class VansController < ApplicationController
             shippingMan.update(followingshippingHash)
           end
         end
+      end
 
       end
       if @van.update(van_params)
         
         
-        format.html { redirect_to @van, notice: 'Van was successfully updated.' }
+        format.html { redirect_to @van }
         format.json { render :show, status: :ok, location: @van }
       else
         format.html { render :edit }

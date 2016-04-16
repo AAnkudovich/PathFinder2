@@ -120,6 +120,7 @@
         $(".active").removeClass("active");
         $("#old").parents("li:first").addClass("active");
         $(".Shipped").removeClass("hidden");
+        $(".Shipping").addClass("hidden");
         $(".Packed.ready.to.ship").addClass("hidden");
         $(".Being.delivered").addClass("hidden");
         $(".Waiting.to.be.packed").addClass("hidden");
@@ -128,6 +129,7 @@
         $(".active").removeClass("active");
         $("#current").parents("li:first").addClass("active");
         $(".Shipped").addClass("hidden");
+        $(".Shipping").removeClass("hidden");
         $(".Packed.ready.to.ship").removeClass("hidden");
         $(".Being.delivered").removeClass("hidden");
         $(".Waiting.to.be.packed").addClass("hidden");
@@ -135,6 +137,7 @@
       $( "#future" ).click(function() {
         $(".active").removeClass("active");
         $("#future").parents("li:first").addClass("active");
+        $(".Shipping").addClass("hidden");
         $(".Shipped").addClass("hidden");
         $(".Packed.ready.to.ship").addClass("hidden");
         $(".Being.delivered").addClass("hidden");

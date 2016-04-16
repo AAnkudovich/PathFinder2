@@ -10,7 +10,7 @@ class ShippingManifestsController < ApplicationController
     @current_shipping_manifests = ShippingManifest.where.not(shippingstatus: "Waiting to be packed").where.not(shippingstatus: "Delivered").sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
 
     @vans = Van.all
-    
+
   end
 
   # GET /shipping_manifests/1
@@ -50,7 +50,7 @@ class ShippingManifestsController < ApplicationController
   def update
     respond_to do |format|
       if @shipping_manifest.update(shipping_manifest_params)
-        format.html { redirect_to @shipping_manifest, notice: 'Shipping manifest was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Shipping manifest was successfully updated.' }
         format.json { render :show, status: :ok, location: @shipping_manifest }
       else
         format.html { render :edit }
