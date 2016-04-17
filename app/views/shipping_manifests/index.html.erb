@@ -26,7 +26,7 @@
       <% @old_shipping_manifests.each do |shipping_manifest| %>
       <tr class="<%= shipping_manifest.shippingStatus %>">
         <td><%= shipping_manifest.dateOut %></td>
-        <td><%= shipping_manifest.shoppingOrder_id %></td>
+        <td class="text-center"><%= shipping_manifest.shoppingOrder_id %></td>
         <td><%= shipping_manifest.shippingStatus %></td>
         <td><%= shipping_manifest.vanID %></td>
         <%if current_user.is_admin?%>
@@ -40,7 +40,7 @@
       <% @future_shipping_manifests.each do |shipping_manifest| %>
       <tr class="<%= shipping_manifest.shippingStatus %>">
         <td><%= shipping_manifest.dateOut %></td>
-        <td><%= shipping_manifest.shoppingOrder_id %></td>
+        <td class="text-center"><%= shipping_manifest.shoppingOrder_id %></td>
         <td><%= shipping_manifest.shippingStatus %></td>
         <td><%= shipping_manifest.vanID %></td>
         <%if current_user.is_admin?%>
