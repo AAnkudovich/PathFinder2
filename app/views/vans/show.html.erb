@@ -6,7 +6,7 @@
 </p>
 
 
-<% @vans_shipping_manifests = ShippingManifest.where(vanID: @van.id).where(shippingStatus: 'Shipping').sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id) }%>
+<% @vans_shipping_manifests = ShippingManifest.where(vanID: @van.id).where(shippingStatus: "Shipping").sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id) }%>
 <%if @vans_shipping_manifests[0]!=nil %>
 <% @shoppingorder = ShoppingOrder.find(@vans_shipping_manifests[0].shoppingOrder_id) %>
 <% @user = User.find(@shoppingorder.customer_id) %>
@@ -14,7 +14,7 @@
 <% @shipping_manifests_new_order = ShippingManifest.where(shippingstatus: "Shipping").where(vanID: @van.id).sort {|a,b|  a.findDistanceForNextStop(@user.address,a.id)<=>b.findDistanceForNextStop(@user.address,b.id)  }%>
 
 <% @shipping_manifests_new_order.each do |shipping_manifest| %>
-      <div class="col-sm-12">
+      <div class="col-sm-12 possition-<%=@shipping_manifests_new_order.index(shipping_manifest)%>">
        <div class="col-sm-6">
 		<% @shoppingorder = ShoppingOrder.find(shipping_manifest.shoppingOrder_id) %>
 		<% @customer = User.find(@shoppingorder.customer_id)%>
@@ -24,6 +24,18 @@
 		</div>
 
 		<div class="col-sm-6">
+<div class="col-sm-12 text-center">
+			<%= form_for(shipping_manifest) do |f| %>
+				  
+				  
+				
+				    <%= f.hidden_field :shippingStatus , :value => "Delivered"%>
+				  
+				  
+				    <%= f.submit "Deliver", :class => "btn btn-lg btn-primary DeliverButton" %>
+				  
+				<% end %>
+			</div>
 			<h2>These will be the next stops</h2>
 			<% position_in_array= @shipping_manifests_new_order.index(shipping_manifest)%>
 			<% counter=position_in_array+1%>
@@ -32,8 +44,14 @@
 				<% @shoppingorder = ShoppingOrder.find(@shipping_manifests_new_order[counter].shoppingOrder_id) %>
 				<% @customer = User.find(@shoppingorder.customer_id)%>
 				<h4>At: <strong><%= @customer.address %></strong></h4>
+				<script  type="text/javascript">
+					  jQuery(document).ready(function($) {
+					      $(".possition-<%=counter%>").addClass("hidden");
+					  });
+					  </script>
 				<%counter=counter+1%>
 				<%end%>
+				
 
 		</div>
       </div>

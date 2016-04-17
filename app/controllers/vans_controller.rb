@@ -56,14 +56,10 @@ class VansController < ApplicationController
         followingshippingHash = Hash.new
         followingshippingHash["vanID"]=@van.id
         followingshippingHash["shippingStatus"]="Shipping"
-        if @following_shipping_manifests.length > 7
+        if @following_shipping_manifests.length > 3
           @following_shipping_manifests[0].update(followingshippingHash)
           @following_shipping_manifests[1].update(followingshippingHash)
           @following_shipping_manifests[2].update(followingshippingHash)
-          @following_shipping_manifests[3].update(followingshippingHash)
-          @following_shipping_manifests[4].update(followingshippingHash)
-          @following_shipping_manifests[5].update(followingshippingHash)
-          @following_shipping_manifests[6].update(followingshippingHash)
         else
           @following_shipping_manifests.each do |shippingMan|
             shippingMan.update(followingshippingHash)
