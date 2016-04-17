@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+.DeliverButton{
+	width: 100%;
+	margin-bottom: 20px;
+}

@@ -1,0 +1,21 @@
+<%= form_for(@van) do |f| %>
+  <% if @van.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@van.errors.count, "error") %> prohibited this van from being saved:</h2>
+
+      <ul>
+      <% @van.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :regPlate %><br>
+    <%= f.text_field :regPlate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410223614) do
+ActiveRecord::Schema.define(version: 20160415132338) do
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20160410223614) do
   create_table "items", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
-    t.float    "price",       limit: 2
+    t.float    "price",       limit: 24
     t.integer  "quantity",    limit: 4
     t.integer  "locationId",  limit: 4
     t.integer  "boxId",       limit: 4
     t.boolean  "fragile"
-    t.float    "weight",      limit: 2
+    t.float    "weight",      limit: 24
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "categoryID",  limit: 4
@@ -68,6 +68,15 @@ ActiveRecord::Schema.define(version: 20160410223614) do
     t.integer  "shoppingOrder_id", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "shipping_manifests", force: :cascade do |t|
+    t.date     "dateOut"
+    t.integer  "shoppingOrder_id", limit: 4
+    t.string   "shippingStatus",   limit: 255
+    t.integer  "vanID",            limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "shopping_orders", force: :cascade do |t|
@@ -104,5 +113,11 @@ ActiveRecord::Schema.define(version: 20160410223614) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vans", force: :cascade do |t|
+    t.string   "regPlate",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
 end

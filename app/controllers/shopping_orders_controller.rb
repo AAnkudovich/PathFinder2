@@ -45,9 +45,11 @@ class ShoppingOrdersController < ApplicationController
 
     respond_to do |format|
       if @shopping_order.save
+        
+        @packing_job=createAPackingJob(@shopping_order.id)
+        @shipping_job=createAshippingManifest(@shopping_order.id)
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        @packing_job=createAPackingJob(@shopping_order.id)
         format.html { redirect_to root_path, notice: 'Thank you for your order' }
         UserMailer.created_order_email(current_user).deliver
         format.json { render :show, status: :created, location: @shopping_order }
@@ -64,6 +66,17 @@ class ShoppingOrdersController < ApplicationController
   def update
     respond_to do |format|
       if @shopping_order.update(shopping_order_params)
+        if @shopping_order.currentStatus == "Packed and ready to ship"
+          @packing_job = PackingJob.where(shoppingOrder_id: @shopping_order.id)
+          packingHash= Hash.new
+          packingHash["customer_id"]=0
+          @packing_job[0].update(packingHash)
+
+          @shipping_manifest = ShippingManifest.where(shoppingOrder_id: @shopping_order.id)
+          shippingman= Hash.new
+          shippingman["shippingStatus"]="Packed ready to ship"
+          @shipping_manifest[0].update(shippingman)
+        end
         format.html { redirect_to :back, notice: 'Shopping order was successfully updated.' }
         format.json { render :show, status: :ok, location: @shopping_order }
       else

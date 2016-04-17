@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+<div class="col-sm-6">
+<p>
+  <strong>Date Shipped Out:</strong>
+  <%= @shipping_manifest.dateOut %>
+</p>
+
+<p>
+  <strong>Shopping Order:</strong>
+  <%= @shipping_manifest.shoppingOrder_id %>
+</p>
+
+<p>
+  <strong>Shipping Status:</strong>
+  <%= @shipping_manifest.shippingStatus %>
+</p>
+
+<p>
+  <strong>Vanid:</strong>
+  <%= @shipping_manifest.vanID %>
+</p>
+</div>
+<div class="col-sm-6">
+<% @shoppingorder = ShoppingOrder.find(@shipping_manifest.shoppingOrder_id) %>
+<% @customer = User.find(@shoppingorder.customer_id)%>
+<h2>Delivering to: <strong><%= @customer.name %></strong></h2>
+<h4>At: <strong><%= @customer.address %></strong></h4>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@customer.latitude}%2C#{@customer.longitude}" %>
+</div>
+<table>
+
+ <thead>
+    <tr>
+      <th>Dateout</th>
+      <th>Shoppingorder</th>
+      <th>Shippingstatus</th>
+      <th>Vanid</th>
+      <th>Distance to Travel</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	   <% @shipping_manifests = ShippingManifest.where(shippingstatus: "Packed ready to ship").sort {|a,b|  a.findDistanceForNextStop(@customer.address,a.id)<=>b.findDistanceForNextStop(@customer.address,b.id)  }%>
+
+    <% @shipping_manifests.each do |shipping_manifest| %>
+    <% if shipping_manifest.id == @shipping_manifest.id%>
+
+    <%else%>
+      <tr class="<%= shipping_manifest.shippingStatus %>">
+        <td><%= shipping_manifest.dateOut %></td>
+        <td><%= shipping_manifest.shoppingOrder_id %></td>
+        <td><%= shipping_manifest.shippingStatus %></td>
+        <td><%= shipping_manifest.vanID %></td>
+        <td>
+        	<strong>
+        		<%= shipping_manifest.findDistanceForNextStop(@customer.address,shipping_manifest.id).round(2) %>
+        		<strong>
+        		</td>
+        <%if current_user.is_admin?%>
+        <td><%= link_to 'Show', shipping_manifest %></td>
+        <td><%= link_to 'Edit', edit_shipping_manifest_path(shipping_manifest) %></td>
+        <td><%= link_to 'Destroy', shipping_manifest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+<%= link_to 'Edit', edit_shipping_manifest_path(@shipping_manifest) %> |
+<%= link_to 'Back', shipping_manifests_path %>

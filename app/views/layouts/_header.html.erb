@@ -38,8 +38,10 @@
         <% if session[:cart_id]!=nil%>
         <li><a href="/carts/<%= session[:cart_id]%>">Cart</a></li>
         <%end%>
-        <li><a href="/shop/floorLayout">Shop Layout</a></li>
         
+        <li><a href="/shop/floorLayout">Shop Layout</a></li>
+        <li><a href="/shipping_manifests/">Shipping</a></li>
+       
           
         </li>
       </ul>
