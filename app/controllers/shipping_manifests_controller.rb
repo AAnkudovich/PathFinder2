@@ -56,8 +56,9 @@ class ShippingManifestsController < ApplicationController
           shoppingHash= Hash.new
           shoppingHash["currentStatus"]="Delivered"
           @shopping_order.update(shoppingHash)
+          @user = User.find(@shopping_order.customer_id)
 
-          
+          UserMailer.deleted_order_email(@user).deliver unless @user.invalid?
         end
         format.html { redirect_to :back, notice: 'Shipping manifest was successfully updated.' }
         format.json { render :show, status: :ok, location: @shipping_manifest }

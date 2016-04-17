@@ -16,4 +16,9 @@ class UserMailer < ActionMailer::Base
 		 mail(:to => "#{user.name} <#{user.email}>", :subject => "Cancelled order")
 
 	end
+	def deleted_order_email(user)
+		@user=user
+		 mail(:to => "#{user.name} <#{user.email}>", :subject => "Order Delivered to #{user.address}")
+
+	end
 end
