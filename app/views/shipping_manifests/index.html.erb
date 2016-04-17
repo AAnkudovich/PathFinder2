@@ -86,7 +86,7 @@
     <% @vans.each do |van| %>
       <tr>
         <td><%= van.regPlate %></td>
-        <td><% @vans_shipping_manifests = ShippingManifest.where(vanID: van.id) 
+        <td><% @vans_shipping_manifests = ShippingManifest.where(vanID: van.id).where(shippingstatus: ["Packed ready to ship","Shipping"]) 
         counter=0
           @vans_shipping_manifests.each do |shipping_manifest| 
             counter = counter+1
@@ -98,7 +98,7 @@
         <%= form_for(van) do |f| %>
           <%= f.hidden_field :regPlate, :value =>  van.regPlate %>
             
-              <%= f.submit "Fill the van" , :class => "btn btn-success"  %>
+              <%= f.submit "Fill the van and Proceed to shipping" , :class => "btn btn-success packing-buttonß"  %>
             
           <% end %>
         </td>
