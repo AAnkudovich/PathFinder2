@@ -37,6 +37,15 @@
 	font-weight: 900;
 	color:red;
 	opacity: 1;
+	
+ }
+
+ .category-select a:hover {
+	font-size: 25px;
+	font-weight: 900;
+	color:red;
+	opacity: 1;
+	background: rgba(206, 206, 206, 0.0);
  }
 	
 .search-text-field{
