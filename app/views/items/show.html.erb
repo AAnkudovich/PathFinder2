@@ -1,7 +1,7 @@
 
 <div class="col-sm-9">
 <%= link_to 'Back', items_path , :class => "btn btn-default" %>
-<div class="col-sm-12">
+<div class="col-sm-9">
   <div class="col-sm-3">
 <img src="<%= @item.image %>" style="width:200px; heigth: 200px;">
 <%= form_for(@lineitem) do |f| %>
@@ -12,14 +12,14 @@
       </div>
       
       
-      <div class="col-sm-12">
-        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => @item.quantity%>
+      <div class="col-sm-12 text-center">
+        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => @item.quantity, :style => 'margin-right: -50px'%>
       </div>
         
 
      
       <div class="col-sm-12">
-      <%= f.submit 'Add to Cart',:class => "btn btn-success", :style => 'width: 100%'%>
+      <%= f.submit 'Add to Cart',:class => "btn btn-success", :style => 'width: 200px'%>
       </div>
       <% end %>
 </div>
@@ -70,5 +70,45 @@
     <%end%>
   </div>
 </div>
+</div>
+</div>
+<div class="col-sm-3">  
+  
+  <% if session[:cart_id]!=nil%>
+  <h3>Your Current cart</h3>
+  <% @cart = Cart.find(session[:cart_id])
+   @total = 0
+    @cart.lineitems.each do |litem| %> 
+    
+      <p><%= litem.quantity %> &times; <%= litem.item.title %> <%= number_to_currency(litem.item.price, :unit => '€' )  %> <%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-times "></i> </p>
+      <% end %>
+      <% @total = @total + (litem.item.price* litem.quantity)%>
+    
+    <% end %> 
+    <hr>
+
+    <h5 class="pull-right">Total in Basket: <strong><%= number_to_currency(@total, :unit => '€' )%></strong></h5>
+    
+    <div class="btn-group pull-right">
+      <%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
+      <%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+      </div>
+
+<% end %>
+
+<div class="col-sm-12" style="padding-right:0;">
+  <hr>
+<h3>Browse by category</h3> 
+<% @categories = Category.all%>
+<div class="list-group panel">
+<% @categories.each do |category| %>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
+        
+      
+    <% end %>
+    </div>
+  </div>
 </div>
 
