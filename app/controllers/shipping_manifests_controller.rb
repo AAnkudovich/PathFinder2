@@ -7,7 +7,7 @@ class ShippingManifestsController < ApplicationController
     # @shipping_manifests = ShippingManifest.all.sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
     @old_shipping_manifests = ShippingManifest.where(shippingstatus: "Delivered")
     @future_shipping_manifests = ShippingManifest.where(shippingstatus: "Waiting to be packed")
-    @current_shipping_manifests = ShippingManifest.where.not(shippingstatus: ["Waiting to be packed","Delivered","Shipping"]).sort {|a,b|  a.findDistanceForDelivery(a.id)<=>b.findDistanceForDelivery(b.id)  }
+    @current_shipping_manifests = ShippingManifest.where.not(shippingstatus: ["Waiting to be packed","Delivered","Shipping"])
     @current_shipping_manifests_assigned = ShippingManifest.where(shippingstatus: "Shipping")
     @vans = Van.all
 

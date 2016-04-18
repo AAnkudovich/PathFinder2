@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @locations = Location.all
+    @lineitem = Lineitem.new
   end
 
   # GET /items/new
