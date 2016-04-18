@@ -11,6 +11,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1.json
   def show
     @items = Item.where(categoryID: @category.id)
+    @lineitem = Lineitem.new
   end
 
   # GET /categories/new
