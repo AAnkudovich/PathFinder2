@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :must_be_admin, only: [:edit, :update,:create,:new]
   # GET /items
   # GET /items.json
   def index

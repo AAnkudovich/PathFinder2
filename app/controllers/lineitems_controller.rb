@@ -1,6 +1,6 @@
 class LineitemsController < ApplicationController
   before_action :set_lineitem, only: [:show, :edit, :update, :destroy]
-
+  before_action :must_be_admin, only: [:index]
   # GET /lineitems
   # GET /lineitems.json
   def index
