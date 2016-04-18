@@ -71,12 +71,14 @@
   <hr>
 <h3>Browse by category</h3> 
 <% @categories = Category.all%>
+<div class="list-group panel">
 <% @categories.each do |category| %>
-      <ol>
-        <li><%= link_to category.name , category%></li>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
         
-      </ol>
+      
     <% end %>
+    </div>
   </div>
 </div>
 

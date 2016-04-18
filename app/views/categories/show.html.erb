@@ -1,8 +1,12 @@
+
 <%if current_user && current_user.is_admin? %>
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
 <%end%>
 <div class="col-sm-9">
+  <div class="alert alert-info">
+<h1><%= @category.name %></h1>
+</div>
 <%if !@items.empty?%>
   <% @items.each do |item| %>
   <% if item.quantity == 0%>
@@ -69,12 +73,14 @@
   <hr>
 <h3>Browse by category</h3> 
 <% @categories = Category.all%>
+<div class="list-group panel">
 <% @categories.each do |category| %>
-      <ul>
-        <li><%= link_to category.name , category%></li>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
         
-      </ul>
+      
     <% end %>
+    </div>
   </div>
 </div>
 
