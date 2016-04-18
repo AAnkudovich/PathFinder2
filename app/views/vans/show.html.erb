@@ -56,6 +56,15 @@
       </div>
       <%end%>
       <%end%>
+<%if current_user.is_admin? %>
+<script>
+jQuery(document).ready(function($) {
+      $('.DeliverButton').addClass("disabled");
+      });
+</script>
+
+
+<%end%>
 
 <%= link_to 'Edit', edit_van_path(@van) %> |
 <%= link_to 'Back', vans_path %>
