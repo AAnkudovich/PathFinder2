@@ -13,10 +13,11 @@
 
         <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Female" %>
           <%= f.radio_button :is_female, false %> <%= f.label :is_female, "Male" %>
-
+<% if current_user.is_admin? %>
+    
         <div><%= f.check_box :is_admin, {}, true %> <%= f.label :is_admin, "Admin" %> </div>
     <div><%= f.check_box :is_packer, {}, true %> <%= f.label :is_packer, "Packer" %> </div>
-    
+    <%end%>
    
     <div><%= f.label :date_of_birth %><br />
         <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916%></div>
@@ -25,8 +26,10 @@
         <%= f.email_field :email %></div>
         <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
+    <%= f.text_field :address %></div>
+    <% if current_user.id == @user.id %>
+
+    <%end%>
 
     
 
