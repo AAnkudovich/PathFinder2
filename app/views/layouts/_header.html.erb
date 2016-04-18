@@ -68,10 +68,9 @@
 
 
         </div> 
-        
+        <div class="search-form-div">
         <%= form_tag(items_path, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search Items by name" %>
-          <%= submit_tag "Search" %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Items by name", :class => "form-control search-text-field" %></div><%= submit_tag "Search", :class => "btn btn-success" %>
           <% end %>
           
      
