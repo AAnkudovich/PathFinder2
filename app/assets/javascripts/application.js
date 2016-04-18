@@ -12,16 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require jquery.turbolinks
 //= require_tree .
 jQuery(document).ready(function($) {
       
-	// if ($(".alert").is(':empty')){
-	// $(".alert").addClass("hidden");
-	// }
-	if ($(".notice").is(':empty')){
-	$(".notice").addClass("hidden");
+	if ($(".main-one").is(':empty')){
+		$(".main-one").addClass("hidden");
 	}
+	
 
 	$("#packing_job_customer_id").addClass("form-control");
 });

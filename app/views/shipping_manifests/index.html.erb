@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <h1>Listing Shipping Manifests</h1>
 <ul class="nav nav-tabs ">
@@ -83,7 +82,6 @@
 
 <br>
 <!-- fill the van -->
-<p id="notice"><%= notice %></p>
 
 <h1>Assign to vehicle which will perform delivery</h1>
 
@@ -112,9 +110,16 @@
         <%= form_for(van) do |f| %>
           <%= f.hidden_field :regPlate, :value =>  van.regPlate %>
             
-              <%= f.submit "Fill the van and Proceed to shipping" , :class => "btn btn-success packing-buttonß"  %>
+              <%= f.submit "Fill the van and Proceed to shipping" , :class => "btn btn-success #{van.id}-packing-button packing-button disabled"  %>
             
           <% end %>
+          <% if counter>3%>
+          <script  type="text/javascript">
+          jQuery(document).ready(function($) {
+            $( ".<%=van.id%>-packing-button" ).removeClass("#{van.id}-packing-button packing-button");
+          });
+          </script>
+          <%end%>
         </td>
       </tr>
     <% end %>
@@ -128,6 +133,7 @@
 
 <script  type="text/javascript">
   jQuery(document).ready(function($) {
+    $( ".packing-button:first" ).removeClass("disabled");
       $(".Delivered").addClass("hidden");
       $(".Waiting.to.be.packed").addClass("hidden");
       $( "#old" ).click(function() {

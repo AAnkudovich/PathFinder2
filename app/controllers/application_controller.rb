@@ -60,6 +60,19 @@ class ApplicationController < ActionController::Base
         @shipping_manifest = ShippingManifest.create(shippingHash)
         @shipping_manifest
     end
-    
-    
+    def must_be_admin
+      unless current_user && current_user.is_admin?
+        redirect_to root_path, notice: "Only admins can go there"
+      end
+    end
+    def must_be_admin_or_packer
+      unless current_user && current_user.is_packer?
+        redirect_to root_path, notice: "Only admins and packers can go there"
+      end
+    end
+    # def must_be_admin_or_driver
+    #   unless current_user && current_user.is_driver?
+    #     redirect_to root_path, notice: "Only admins and packers can go there"
+    #   end
+    # end
 end

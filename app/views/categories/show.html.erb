@@ -1,39 +1,48 @@
+
 <%if current_user && current_user.is_admin? %>
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
 <%end%>
-<h1>Warehouse shopping (Slideshow into here) </h1>
 <div class="col-sm-9">
+  <div class="alert alert-info">
+<h1><%= @category.name %></h1>
+</div>
 <%if !@items.empty?%>
   <% @items.each do |item| %>
   <% if item.quantity == 0%>
   
 
   <% else %>
-  <h4><%= item.title %></h4>
+  <h4><%= link_to item.title, item %></h4>
   <div class="col-sm-12" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">
     <div class="col-sm-9">
       <div class="form-group">
         <div class="col-sm-8">
         <img src="<%= item.image %>" style="width:20px; heigth: 20px;">
         <%= number_to_currency(item.price, :unit => '€' ) %> Weight:<%= item.weight %> kg  </div>
-        <div class="col-sm-4">
-        <input type="number" id="quantity" style="width:40%" class=" text-center form-control bfh-number pull-right" value="1" min="1" name="customQuantity">
         
         
-
-            <!-- data-max="item.quantity" -->
-            
-          </div>
-          </div>
+        
   
+<%= form_for(@lineitem) do |f| %>
+  
+
+  <div class="field">
+    <%= f.hidden_field :item_id, :value =>  item.id   %>
+  </div>
+  
+  
+  <div class="col-sm-4">
+    <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => item.quantity%>
+  </div>
+    </div>
 
   </div>
   <div class="col-sm-3">
-  <%= button_to 'Add to Cart', lineitems_path(item_id: item),:class => "btn btn-success pull-right" %>
+  <%= f.submit 'Add to Cart',:class => "btn btn-success pull-right" %>
   </div>
   
-
+<%end%>
   </div>
   <%end%>
   <%end%>
@@ -70,12 +79,14 @@
   <hr>
 <h3>Browse by category</h3> 
 <% @categories = Category.all%>
+<div class="list-group panel">
 <% @categories.each do |category| %>
-      <ul>
-        <li><%= link_to category.name , category%></li>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
         
-      </ul>
+      
     <% end %>
+    </div>
   </div>
 </div>
 

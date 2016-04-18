@@ -1,6 +1,20 @@
-<h1>Warehouse shopping (Slideshow into here) </h1>
+
 <div class="col-sm-9">
-	
+	<% @categories = Category.all%>
+	<div class="col-sm-12">
+		<div class="col-sm-4 category-select" style="background-image: url(http://res.cloudinary.com/dp20nga5l/image/upload/v1460985023/retail-products_yr9i2o.jpg);background-size: 100% 100%; height: 150px; color:blue;">
+			<p> <a href="/items">All Items</a></p>
+		</div>
+<% @categories.each do |category| %>
+<% @item = Item.where(categoryID: category.id)%>
+      <div class="col-sm-4 category-select" style="background-image: url(<%=@item[0].image%>);background-size: 100% 100%; height: 150px; color:blue;">
+       <p> <%= link_to category.name , category %></p>
+        
+
+       </div>
+      
+    <% end %>
+    </div>
 <%if !@items.empty?%>
 	<% @items.each do |item| %>
 	<% if item.quantity == 0%>
@@ -67,18 +81,11 @@
 			<%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
 			</div>
 
+			<%else%>
+			
+
 <% end %>
 
-<div class="col-sm-12" style="padding-right:0;">
-	<hr>
-<h3>Browse by category</h3>	
-<% @categories = Category.all%>
-<% @categories.each do |category| %>
-      <ul>
-        <li><%= link_to category.name , category%></li>
-        
-      </ul>
-    <% end %>
-	</div>
+
 </div>
 

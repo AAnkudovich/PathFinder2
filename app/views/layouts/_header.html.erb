@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>WareHouse</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -38,9 +39,11 @@
         <% if session[:cart_id]!=nil%>
         <li><a href="/carts/<%= session[:cart_id]%>">Cart</a></li>
         <%end%>
-        
+        <%if current_user && current_user.is_admin?%>
         <li><a href="/shop/floorLayout">Shop Layout</a></li>
         <li><a href="/shipping_manifests/">Shipping</a></li>
+        <li><a href="/vans/">Van</a></li>
+        <%end%>
        
           
         </li>
@@ -68,10 +71,9 @@
 
 
         </div> 
-        
+        <div class="search-form-div">
         <%= form_tag(items_path, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search Items by name" %>
-          <%= submit_tag "Search" %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Items by name", :class => "form-control search-text-field" %></div><%= submit_tag "Search", :class => "btn btn-success" %>
           <% end %>
           
      

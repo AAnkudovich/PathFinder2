@@ -17,3 +17,47 @@
 	width: 100%;
 	margin-bottom: 20px;
 }
+
+.category-select a {
+	
+	font-size: 16px;
+	font-weight: 900;
+	color:red;
+}
+.category-select {
+	padding-left: 0;
+	opacity: 0.7;
+}
+.category-select:hover { 
+	opacity: 1;
+	
+ }
+ .category-select:hover a {
+	font-size: 25px;
+	font-weight: 900;
+	color:red;
+	opacity: 1;
+	
+ }
+
+ .category-select a:hover {
+	font-size: 25px;
+	font-weight: 900;
+	color:red;
+	opacity: 1;
+	background: rgba(206, 206, 206, 0.0);
+ }
+	
+.search-text-field{
+	width: 200px;
+}
+.search-form-div{
+	display: inline-block;
+	padding-top: 15px;
+}
+.session-control-buttons{
+	padding-top: 15px;
+}
+.main-one{
+	margin-bottom: 0;
+}

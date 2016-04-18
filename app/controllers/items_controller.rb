@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :must_be_admin, only: [:edit, :update,:create,:new]
   # GET /items
   # GET /items.json
   def index
@@ -10,12 +10,14 @@ class ItemsController < ApplicationController
     else
       @items = Item.all.order('created_at DESC')
     end
+    @lineitem = Lineitem.new
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
     @locations = Location.all
+    @lineitem = Lineitem.new
   end
 
   # GET /items/new

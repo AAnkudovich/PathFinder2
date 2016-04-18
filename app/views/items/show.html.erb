@@ -1,44 +1,114 @@
-<p id="notice"><%= notice %></p>
+
+<div class="col-sm-9">
+<%= link_to 'Back', items_path , :class => "btn btn-default" %>
+<div class="col-sm-9">
+  <div class="col-sm-3">
+<img src="<%= @item.image %>" style="width:200px; heigth: 200px;">
+<%= form_for(@lineitem) do |f| %>
+      
+
+      <div class="field">
+        <%= f.hidden_field :item_id, :value =>  @item.id   %>
+      </div>
+      
+      
+      <div class="col-sm-12 text-center">
+        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => @item.quantity, :style => 'margin-right: -50px'%>
+      </div>
+        
+
+     
+      <div class="col-sm-12">
+      <%= f.submit 'Add to Cart',:class => "btn btn-success", :style => 'width: 200px'%>
+      </div>
+      <% end %>
+</div>
+<div class="col-sm-7 col-sm-offset-2">
+  <h1><%= @item.title %></h1>
 
 <p>
-  <strong>Title:</strong>
-  <%= @item.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
+  <strong>Description:</strong><br>
   <%= @item.description %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= @item.price %>
+  <%= number_to_currency(@item.price, :unit => '€' ) %>
 </p>
 
 <p>
-  <strong>Quantity:</strong>
+  <strong>Quantity remaining:</strong>
   <%= @item.quantity %>
 </p>
 
-<p>
-  <strong>Locationid:</strong>
-  <%= @item.locationId %>
-</p>
 
-<p>
-  <strong>Boxid:</strong>
-  <%= @item.boxId %>
-</p>
-
-<p>
-  <strong>Fragile:</strong>
-  <%= @item.fragile %>
-</p>
 
 <p>
   <strong>Weight:</strong>
-  <%= @item.weight %>
+  <%= @item.weight %> kg
 </p>
+<%if current_user && current_user.is_admin?%>
+<%= link_to 'Edit', edit_item_path(@item) %> 
+<%end%>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+</div>
+<div class="col-sm-12">
+    <% @similaritems = Item.where(categoryID: @item.categoryID)%>
+    <%if @similaritems[0]!=nil%>
+    <h1>Similar items</h1>
+    <div class="col-sm-12 text-center">
+    <% @similaritems.each do |item| %>
+    <%if item.id == @item.id%>
+    <%else%>
+    <div class="col-sm-4" style="border: 1px solid grey; height: 140px;">
+      <img src="<%= item.image %>" style="width:100px; heigth: 100px;"><br>
+      <%= link_to item.title, item %>
+      <%= number_to_currency(item.price, :unit => '€' ) %>
+    </div>
+    <%end%>
+    <%end%>
+    <%end%>
+  </div>
+</div>
+</div>
+</div>
+<div class="col-sm-3">  
+  
+  <% if session[:cart_id]!=nil%>
+  <h3>Your Current cart</h3>
+  <% @cart = Cart.find(session[:cart_id])
+   @total = 0
+    @cart.lineitems.each do |litem| %> 
+    
+      <p><%= litem.quantity %> &times; <%= litem.item.title %> <%= number_to_currency(litem.item.price, :unit => '€' )  %> <%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-times "></i> </p>
+      <% end %>
+      <% @total = @total + (litem.item.price* litem.quantity)%>
+    
+    <% end %> 
+    <hr>
+
+    <h5 class="pull-right">Total in Basket: <strong><%= number_to_currency(@total, :unit => '€' )%></strong></h5>
+    
+    <div class="btn-group pull-right">
+      <%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
+      <%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+      </div>
+
+<% end %>
+
+<div class="col-sm-12" style="padding-right:0;">
+  <hr>
+<h3>Browse by category</h3> 
+<% @categories = Category.all%>
+<div class="list-group panel">
+<% @categories.each do |category| %>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
+        
+      
+    <% end %>
+    </div>
+  </div>
+</div>
+
