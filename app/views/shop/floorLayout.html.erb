@@ -1,4 +1,4 @@
-<h1>floorLayout</h1>
+<h1>Floor Layout</h1>
 <div class="text-center">
 <table style="border:1px solid black;">
 	<tr>
@@ -358,7 +358,6 @@
 
 <h1><span style="background-color: gray">&nbsp;&nbsp;</span> Availible shelf space</h1>
 <h1><span style="background-color: red">&nbsp;&nbsp;</span> Shelf space already used</h1>
-<h1><span style="background-color: green">&nbsp;&nbsp;</span> Checkout counter/Doors</h1>
 <%if !@locations.empty?%>
 	<% @locations.each do |location| %>
 
@@ -394,60 +393,60 @@
 	<h2>No items assigned to places</h2>
 	<% end %>
 
-<script  type="text/javascript">
-	jQuery(document).ready(function($) {
+ <script  type="text/javascript">
+// 	jQuery(document).ready(function($) {
       
-      $('.10-14').css({"background-color": "green"});
-      $('.0-3').css({"background-color": "green"});
-      var i=10;
-      var g=14;
-      var il=0;
-      var gl=3;
-      var count=0;
-      var found = false;
+//       $('.10-14').css({"background-color": "green"});
+//       $('.0-3').css({"background-color": "green"});
+//       var i=10;
+//       var g=14;
+//       var il=0;
+//       var gl=3;
+//       var count=0;
+//       var found = false;
 
 
-      while (!found){
-        i--;
-        g--;
-        if ($('.'+i+'-'+g).text() == 'X'){
+//       while (!found){
+//         i--;
+//         g--;
+//         if ($('.'+i+'-'+g).text() == 'X'){
 
 
             
-            if(i > 0  ){
+//             if(i > 0  ){
 
-                i++;
-                count++;
-                $('.'+i+'-'+g+'').css({"background-color": "pink"});
-                // alert(g);
+//                 i++;
+//                 count++;
+//                 $('.'+i+'-'+g+'').css({"background-color": "pink"});
+//                 // alert(g);
                 
-                }
+//                 }
             
             
-            }
+//             }
         
         
-        else{        
-            if(g>-1){
-            $('.'+i+'-'+g+'').css({"background-color": "yellow"});
-            count++;
-        }
-        else if (g=-1){
+//         else{        
+//             if(g>-1){
+//             $('.'+i+'-'+g+'').css({"background-color": "yellow"});
+//             count++;
+//         }
+//         else if (g=-1){
             
-            g=g+2;
-            i++;
-            $('.'+i+'-'+g+'').css({"background-color": "yellow"});
-            count++;
-            found=true;
-        }
+//             g=g+2;
+//             i++;
+//             $('.'+i+'-'+g+'').css({"background-color": "yellow"});
+//             count++;
+//             found=true;
+//         }
 
                 
 
 
-        } 
-    }
+//         } 
+//     }
       
-      // alert(count);
-      });
+//       // alert(count);
+//       });
 
-	</script>
+// 	</script>

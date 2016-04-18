@@ -10,6 +10,7 @@ class ItemsController < ApplicationController
     else
       @items = Item.all.order('created_at DESC')
     end
+    @lineitem = Lineitem.new
   end
 
   # GET /items/1
