@@ -50,6 +50,16 @@ class ShippingManifestsController < ApplicationController
   def update
     respond_to do |format|
       if @shipping_manifest.update(shipping_manifest_params)
+        
+        if @shipping_manifest.shippingStatus == "Delivered"
+          @shopping_order = ShoppingOrder.find(@shipping_manifest.shoppingOrder_id)
+          shoppingHash= Hash.new
+          shoppingHash["currentStatus"]="Delivered"
+          @shopping_order.update(shoppingHash)
+          @user = User.find(@shopping_order.customer_id)
+
+          UserMailer.deleted_order_email(@user).deliver unless @user.invalid?
+        end
         format.html { redirect_to :back, notice: 'Shipping manifest was successfully updated.' }
         format.json { render :show, status: :ok, location: @shipping_manifest }
       else
