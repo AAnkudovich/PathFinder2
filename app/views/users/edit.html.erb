@@ -1,7 +1,5 @@
+<% if current_user && current_user.is_admin?%>
 <%= @user.email %><br>
-
-
-   
 <%= @user.name %><br>
 <%= @user.date_of_birth %><br>
 <%= @user.is_admin %><br>
@@ -35,3 +33,41 @@
 
 <div><%= f.submit "Update" %></div>
  <% end %>
+ <% elsif current_user && current_user.id == @user.id%>
+ <%= @user.email %><br>
+<%= @user.name %><br>
+<%= @user.date_of_birth %><br>
+<%= @user.is_admin %><br>
+<%= @user.is_packer %><br>
+<%= form_for(@user) do |f| %>
+ <div><%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true %></div>
+        
+
+        <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Female" %>
+          <%= f.radio_button :is_female, false %> <%= f.label :is_female, "Male" %>
+<% if current_user.is_admin? %>
+    
+        <div><%= f.check_box :is_admin, {}, true %> <%= f.label :is_admin, "Admin" %> </div>
+    <div><%= f.check_box :is_packer, {}, true %> <%= f.label :is_packer, "Packer" %> </div>
+    <%end%>
+   
+    <div><%= f.label :date_of_birth %><br />
+        <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916%></div>
+
+    <div><%= f.label :email %><br />
+        <%= f.email_field :email %></div>
+        <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %></div>
+    <% if current_user.id == @user.id %>
+
+    <%end%>
+
+    
+
+<div><%= f.submit "Update" %></div>
+ <% end %>
+ <% else %>
+ <h3>Only Admins can alter other users.</h3>
+ <%end%>
