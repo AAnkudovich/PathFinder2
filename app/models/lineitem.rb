@@ -7,13 +7,13 @@ class Lineitem < ActiveRecord::Base
     weightPoints = lineitem.item.weight
     fragilePoints = 0
     if lineitem.item.fragile
-        fragilePoints=20
+        fragilePoints=60
     end
     box = Box.find(lineitem.item.boxId) 
     boxPoints = box.points
 
 
-   returningpoints=weightPoints +  fragilePoints + boxPoints
+   returningpoints=weightPoints - fragilePoints + boxPoints
 
     end
     
