@@ -18,6 +18,7 @@ class ItemsController < ApplicationController
   def show
     @locations = Location.all
     @lineitem = Lineitem.new
+    @item_comment = ItemComment.new
   end
 
   # GET /items/new

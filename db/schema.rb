@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415132338) do
+ActiveRecord::Schema.define(version: 20160423091133) do
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20160415132338) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "item_comments", force: :cascade do |t|
+    t.integer  "userID",     limit: 4
+    t.integer  "itemID",     limit: 4
+    t.integer  "rating",     limit: 4
+    t.text     "message",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -77,6 +86,16 @@ ActiveRecord::Schema.define(version: 20160415132338) do
     t.integer  "vanID",            limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "shopping_order_comments", force: :cascade do |t|
+    t.integer  "userID",          limit: 4
+    t.integer  "packingRating",   limit: 4
+    t.integer  "shoppingOrderID", limit: 4
+    t.integer  "deliveryRating",  limit: 4
+    t.text     "message",         limit: 65535
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "shopping_orders", force: :cascade do |t|

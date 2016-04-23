@@ -23,21 +23,23 @@
   <%= @shopping_order.currentStatus %>
 </p>
 
-
-<%= render 'layouts/shopGrid' %>
-<table>
-	<tr>
-		<th>Quantity</th>
-		<th style="padding-left:20px; padding-right:20px;">Title</th>
-		<th>Total</th>
+<table style="border: 1px solid grey; width:80%;">
+	<tr style="border: 1px solid grey;">
+		<th style="border: 1px solid grey;">Quantity</th>
+		<th style="padding-left:20px; padding-right:20px; border: 1px solid grey;">Title</th>
+    <th style="border: 1px solid grey;">Price per unit</th>
+		<th style="border: 1px solid grey;">Total</th>
 	</tr>
 
 <% @shopping_order.lineitems.each do |litem| %> 
-<tr>
+<tr style="border: 1px solid grey;">
 <td><%= litem.quantity %> &times;</td>
  <td style="padding-left:20px; padding-right:20px;">
   <%= litem.item.title %>
  </td> 
+ <td>
+  <%= number_to_currency(litem.item.price , :unit => '€' ) %>
+</td>
 <td>
   <%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %>
 </td>

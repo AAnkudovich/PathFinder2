@@ -70,32 +70,33 @@
 	<strong>Packed</strong>
 
 		<% else %>
-		
+		<%if current_user.is_packer %>
 			<%= form_for(litem) do |f| %>
 			<%= f.hidden_field :packed , :value => '1' %>
 			<div class="actions">
 			    <%= f.submit "Pack Item", :class => "btn btn-primary not-yet-processed disabled" %>
 			  </div>
 			<% end %>
+			<% end %>
 		
-<% itemDis = Item.find(litem.item_id) %>
+			<% itemDis = Item.find(litem.item_id) %>
 
-<script  type="text/javascript">
-	jQuery(document).ready(function($) {
-      var str ='.'+ <%= location.lat %> + '-' + <%= location.lon %>;
-      
-      $(str).css({"background-color": "green"});
-      $(str).click(function() {
-        alert(' Item Name: <%= litem.item.title %>' + "\n" + "Item Quantity: " +  <%= litem.quantity %> + "\n" + "Item Weight: " +  <%= litem.item.weight %>);
-      });
-      strglass =str + "-glass";
-      $(strglass).click(function() {
-        $(str).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-      });
-      });
-	
+			<script  type="text/javascript">
+				jQuery(document).ready(function($) {
+			      var str ='.'+ <%= location.lat %> + '-' + <%= location.lon %>;
+			      
+			      $(str).css({"background-color": "green"});
+			      $(str).click(function() {
+			        alert(' Item Name: <%= litem.item.title %>' + "\n" + "Item Quantity: " +  <%= litem.quantity %> + "\n" + "Item Weight: " +  <%= litem.item.weight %>);
+			      });
+			      strglass =str + "-glass";
+			      $(strglass).click(function() {
+			        $(str).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+			      });
+			      });
+				
 
-	</script>
+				</script>
 		<% end %>
 </td>
 
