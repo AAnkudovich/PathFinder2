@@ -15,6 +15,7 @@
     
         <div><%= f.check_box :is_admin, {}, true %> <%= f.label :is_admin, "Admin" %> </div>
     <div><%= f.check_box :is_packer, {}, true %> <%= f.label :is_packer, "Packer" %> </div>
+    <div><%= f.check_box :is_driver, {}, true %> <%= f.label :is_driver, "Driver" %> </div>
     <%end%>
    
     <div><%= f.label :date_of_birth %><br />
@@ -69,5 +70,9 @@
 <div><%= f.submit "Update" %></div>
  <% end %>
  <% else %>
+ <div class="alert alert-danger">
  <h3>Only Admins can alter other users.</h3>
+ <%= link_to "Back to home page", root_path, :method => :get, :class => "btn btn-default"  %>
+ </div>
  <%end%>
+

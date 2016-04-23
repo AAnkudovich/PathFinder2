@@ -1,6 +1,6 @@
 class ShippingManifestsController < ApplicationController
   before_action :set_shipping_manifest, only: [:show, :edit, :update, :destroy]
-  efore_action :must_be_admin, only: [:edit, :update,:index,:show,:destroy,:new,:create]
+  before_action :must_be_admin, only: [:edit, :update,:index,:show,:destroy,:new,:create]
   
 
   # GET /shipping_manifests
