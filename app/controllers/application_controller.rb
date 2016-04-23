@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     protected
         def configure_permitted_parameters
             devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :date_of_birth, :address) }
-            devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :is_female, :is_admin, :is_packer, :date_of_birth, :address) }
+            devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :is_female, :is_admin, :is_packer,:is_driver, :date_of_birth, :address) }
         end
     
     private
@@ -66,13 +66,13 @@ class ApplicationController < ActionController::Base
       end
     end
     def must_be_admin_or_packer
-      unless current_user && current_user.is_packer?
+      unless current_user && current_user.is_packer? || current_user.is_admin?
         redirect_to root_path, notice: "Only admins and packers can go there"
       end
     end
-    # def must_be_admin_or_driver
-    #   unless current_user && current_user.is_driver?
-    #     redirect_to root_path, notice: "Only admins and packers can go there"
-    #   end
-    # end
+    def must_be_admin_or_driver
+      unless current_user && current_user.is_driver? || current_user.is_admin?
+        redirect_to root_path, notice: "Only admins and Drivers can go there"
+      end
+    end
 end

@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160415132338) do
     t.float    "longitude",              limit: 24
     t.boolean  "is_admin",                           default: false
     t.boolean  "is_packer",                          default: false
+    t.boolean  "is_driver",                          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

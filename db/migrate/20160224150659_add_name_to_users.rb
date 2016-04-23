@@ -8,5 +8,6 @@ class AddNameToUsers < ActiveRecord::Migration
     add_column :users, :longitude, :float
     add_column :users, :is_admin, :boolean, default: false
     add_column :users, :is_packer, :boolean, default: false
+    add_column :users, :is_driver, :boolean, default: false
   end
 end

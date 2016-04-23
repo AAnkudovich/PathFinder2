@@ -35,6 +35,37 @@
 				  
 				<% end %>
 			</div>
+
+<p><%= link_to 'Printable Receipt (PDF)', shopping_order_path(@shoppingorder, format: "pdf"), :class => "btn btn-primary pull-right" %></p>
+
+<div class="col-sm-12">
+<h3>Items to Deliver for shopping order #<%= @shoppingorder.id%></h3>
+</div>
+<table>
+	<tr>
+		<th>Quantity</th>
+		<th style="padding-left:20px; padding-right:20px;">Title</th>
+		<th>Total</th>
+	</tr>
+
+<% @shoppingorder.lineitems.each do |litem| %> 
+<tr>
+<td><%= litem.quantity %> &times;</td>
+ <td style="padding-left:20px; padding-right:20px;">
+  <%= litem.item.title %>
+ </td> 
+<td>
+  <%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %>
+</td>
+
+</tr>
+<% end %> 
+</table>
+
+
+
+
+
 			<h2>These will be the next stops</h2>
 			<% position_in_array= @shipping_manifests_new_order.index(shipping_manifest)%>
 			<% counter=position_in_array+1%>

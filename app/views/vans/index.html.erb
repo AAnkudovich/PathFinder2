@@ -11,16 +11,25 @@
 
   <tbody>
     <% @vans.each do |van| %>
+
       <tr>
         <td><%= van.regPlate %></td>
+        <td><% @vans_shipping_manifests = ShippingManifest.where(vanID: van.id).where(shippingstatus: ["Packed ready to ship","Shipping"]) 
+        counter=0
+          @vans_shipping_manifests.each do |shipping_manifest| 
+            counter = counter+1
+          end
+        %>
+        <%= counter%> Orders still in the van</td>
         <td><%= link_to 'Show', van %></td>
-        <td><%= link_to 'Edit', edit_van_path(van) %></td>
-        <td><%= link_to 'Destroy', van, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<%if current_user.is_admin? %>
 <%= link_to 'New Van', new_van_path %>
+<%end%>

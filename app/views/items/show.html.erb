@@ -1,8 +1,9 @@
 
 <div class="col-sm-9">
-<%= link_to 'Back', items_path , :class => "btn btn-default" %>
 <div class="col-sm-9">
+
   <div class="col-sm-3">
+    <%= link_to 'Back', items_path , :class => "btn btn-default" %>
 <img src="<%= @item.image %>" style="width:200px; heigth: 200px;">
 <%= form_for(@lineitem) do |f| %>
       
@@ -13,7 +14,7 @@
       
       
       <div class="col-sm-12 text-center">
-        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => @item.quantity, :style => 'margin-right: -50px'%>
+        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => @item.quantity, :style => 'margin-right: -113px;width: 200px;'%>
       </div>
         
 

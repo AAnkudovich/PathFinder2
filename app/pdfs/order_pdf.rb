@@ -15,8 +15,9 @@ class OrderPdf < Prawn::Document
 		
 		text "#{@user.name}", size: 16 , style: :bold, align: :right
 		text "#{@user.email}", size: 16 , style: :bold, align: :right
-
 		text "Ordered on #{@shoppingOrder.created_at.to_date}", size: 16 , align: :right
+		text "Delivering to #{@user.address}", size: 12 , align: :right
+		
 
 		text "Order \# #{@shoppingOrder.id}", size: 22 , style: :bold
 	end

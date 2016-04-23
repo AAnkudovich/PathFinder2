@@ -17,8 +17,9 @@
 jQuery(document).ready(function($) {
       
 	if ($(".main-one").is(':empty')){
-		$(".main-one").addClass("hidden");
+		$(this).addClass("hidden");
 	}
+	
 	
 
 	$("#packing_job_customer_id").addClass("form-control");
