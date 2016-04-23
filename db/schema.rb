@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 20160423091133) do
 
   create_table "shopping_order_comments", force: :cascade do |t|
     t.integer  "userID",          limit: 4
-    t.integer  "packingRating",   limit: 4
     t.integer  "shoppingOrderID", limit: 4
     t.integer  "deliveryRating",  limit: 4
     t.text     "message",         limit: 65535

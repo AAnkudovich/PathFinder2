@@ -12,6 +12,7 @@ class ShoppingOrdersController < ApplicationController
   # GET /shopping_orders/1
   # GET /shopping_orders/1.json
   def show
+    @shopping_order_comment = ShoppingOrderComment.new
     @locations = Location.all
     @items = Item.all
     respond_to do |format|
@@ -21,6 +22,7 @@ class ShoppingOrdersController < ApplicationController
          send_data pdf.render, filename: "Order_#{@shopping_order.id}.pdf", type: "application/pdf", disposition: "inline"
       end
     end
+
   end
 
   # GET /shopping_orders/new

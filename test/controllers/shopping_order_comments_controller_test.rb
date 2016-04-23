@@ -18,7 +18,7 @@ class ShoppingOrderCommentsControllerTest < ActionController::TestCase
 
   test "should create shopping_order_comment" do
     assert_difference('ShoppingOrderComment.count') do
-      post :create, shopping_order_comment: { deliveryRating: @shopping_order_comment.deliveryRating, message: @shopping_order_comment.message, packingRating: @shopping_order_comment.packingRating, packingRating: @shopping_order_comment.packingRating, shoppingOrderID: @shopping_order_comment.shoppingOrderID, userID: @shopping_order_comment.userID }
+      post :create, shopping_order_comment: { deliveryRating: @shopping_order_comment.deliveryRating, message: @shopping_order_comment.message, packingRating: @shopping_order_comment.packingRating, shoppingOrderID: @shopping_order_comment.shoppingOrderID, userID: @shopping_order_comment.userID }
     end
 
     assert_redirected_to shopping_order_comment_path(assigns(:shopping_order_comment))
@@ -35,7 +35,7 @@ class ShoppingOrderCommentsControllerTest < ActionController::TestCase
   end
 
   test "should update shopping_order_comment" do
-    patch :update, id: @shopping_order_comment, shopping_order_comment: { deliveryRating: @shopping_order_comment.deliveryRating, message: @shopping_order_comment.message, packingRating: @shopping_order_comment.packingRating, packingRating: @shopping_order_comment.packingRating, shoppingOrderID: @shopping_order_comment.shoppingOrderID, userID: @shopping_order_comment.userID }
+    patch :update, id: @shopping_order_comment, shopping_order_comment: { deliveryRating: @shopping_order_comment.deliveryRating, message: @shopping_order_comment.message, packingRating: @shopping_order_comment.packingRating, shoppingOrderID: @shopping_order_comment.shoppingOrderID, userID: @shopping_order_comment.userID }
     assert_redirected_to shopping_order_comment_path(assigns(:shopping_order_comment))
   end
 

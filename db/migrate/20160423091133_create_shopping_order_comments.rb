@@ -3,7 +3,6 @@ class CreateShoppingOrderComments < ActiveRecord::Migration
     create_table :shopping_order_comments do |t|
       t.integer :userID
       t.integer :packingRating
-      t.integer :packingRating
       t.integer :shoppingOrderID
       t.integer :deliveryRating
       t.text :message

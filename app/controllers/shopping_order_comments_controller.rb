@@ -69,6 +69,6 @@ class ShoppingOrderCommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shopping_order_comment_params
-      params.require(:shopping_order_comment).permit(:userID, :packingRating, :packingRating, :shoppingOrderID, :deliveryRating, :message)
+      params.require(:shopping_order_comment).permit(:userID, :packingRating, :shoppingOrderID, :deliveryRating, :message)
     end
 end
