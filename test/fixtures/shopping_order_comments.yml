@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userID: 1
+  packingRating: 1
+  shoppingOrderID: 1
+  deliveryRating: 1
+  message: MyText
+
+two:
+  userID: 1
+  packingRating: 1
+  shoppingOrderID: 1
+  deliveryRating: 1
+  message: MyText

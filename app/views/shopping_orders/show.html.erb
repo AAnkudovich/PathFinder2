@@ -15,7 +15,7 @@
 
 <p>
   <strong>Total:</strong>
-  <%= @shopping_order.total %>
+  <%= number_to_currency(@shopping_order.total , :unit => '€'  ) %>
 </p>
 
 <p>
@@ -23,21 +23,23 @@
   <%= @shopping_order.currentStatus %>
 </p>
 
-
-<%= render 'layouts/shopGrid' %>
-<table>
-	<tr>
-		<th>Quantity</th>
+<table style="border: 1px solid grey; width:80%;">
+	<tr style="border: 1px solid grey;">
+		<th >Quantity</th>
 		<th style="padding-left:20px; padding-right:20px;">Title</th>
-		<th>Total</th>
+    <th >Price per unit</th>
+		<th >Total</th>
 	</tr>
 
 <% @shopping_order.lineitems.each do |litem| %> 
-<tr>
+<tr style="border: 1px solid grey;">
 <td><%= litem.quantity %> &times;</td>
  <td style="padding-left:20px; padding-right:20px;">
   <%= litem.item.title %>
  </td> 
+ <td>
+  <%= number_to_currency(litem.item.price , :unit => '€' ) %>
+</td>
 <td>
   <%= number_to_currency(litem.item.price * litem.quantity, :unit => '€' ) %>
 </td>
@@ -58,12 +60,119 @@
 </tr>
 <% end %> 
 </table>
-<%if current_user.is_admin? %>
-            
-         
-<%= link_to 'Edit', edit_shopping_order_path(@shopping_order) %> 
-<%= link_to 'Back', shopping_orders_path %>
+<div class="col-sm-12" style="margin-top:20px;">
+<% if @shopping_order.currentStatus=="Delivered" && current_user.id==@shopping_order.customer_id%>
+<%= form_for(@shopping_order_comment) do |f| %>
+  
+    <%= f.hidden_field :userID, :value => current_user.id %>
+  
+  
+    <%= f.hidden_field :packingRating , :class => "packing-rating-star-number-field" %>
+    <strong>Packaging rating: <strong>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="1"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="2"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="3"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="4"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="5"></i>
+
+<script  type="text/javascript">
+    jQuery(document).ready(function($) {
+      $(".selecting.fa-star-o").click(function() {
+        
+        $selected = $(this).attr('value');
+        $(".packing-rating-star-number-field").val($selected);
+        $(".selecting.fa-star").removeClass("fa-star").addClass("fa-star-o");
+        while($selected > 0){ 
+          
+          $(".selecting[value="+$selected+"]").removeClass("fa-star-o").addClass("fa-star");
+          $selected--;
+        }
+
+
+
+        });
+
+    });
+
+</script>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+    <%= f.hidden_field :shoppingOrderID , :value => @shopping_order.id %>
+  
+  
+    
+    <%= f.hidden_field :deliveryRating , :class => "delivery-rating-star-number-field" %>
+    <strong>Delivery Rating: <strong>
+    <i class="fa selectingdel fa-star-o" aria-hidden="true" value="1"></i>
+    <i class="fa selectingdel fa-star-o" aria-hidden="true" value="2"></i>
+    <i class="fa selectingdel fa-star-o" aria-hidden="true" value="3"></i>
+    <i class="fa selectingdel fa-star-o" aria-hidden="true" value="4"></i>
+    <i class="fa selectingdel fa-star-o" aria-hidden="true" value="5"></i>
+
+<script  type="text/javascript">
+    jQuery(document).ready(function($) {
+      $(".selectingdel.fa-star-o").click(function() {
+        
+        $selected = $(this).attr('value');
+        $(".delivery-rating-star-number-field").val($selected);
+        $(".selectingdel.fa-star").removeClass("fa-star").addClass("fa-star-o");
+        while($selected > 0){ 
+          
+          $(".selectingdel[value="+$selected+"]").removeClass("fa-star-o").addClass("fa-star");
+          $selected--;
+        }
+
+
+
+        });
+
+    });
+
+</script>
+  </div>
+  <div class="field">
+    <%= f.label :message %><br>
+    <%= f.text_area :message, :class=> "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>
-<% if @shopping_order.customer_id == current_user.id%>
+</div>
+
+<%else%>
+  <%if current_user.is_admin %>
+<p>Administrator review
+  <% elsif current_user.id == @shopping_order.customer_id%>
+  <h1>Please review the order once it is delivered</h1>
+  <%else%>
+  <p>You arent meant to see this order</p>
+  <%end%>
+<%end%>
+<div class="container">
+<% @shopping_order_comments = ShoppingOrderComment.where(shoppingOrderID: @shopping_order.id) %>
+
+<h1>User reviews regarding this order</h1>
+
+
+
+  
+    <% @shopping_order_comments.each do |shopping_order_comment| %>
+      
+        <%@reviewer= User.find(shopping_order_comment.userID) %>
+        <%= @reviewer.name %> has rated the packing <%if shopping_order_comment.packingRating== nil %> 0 <%else%><%= shopping_order_comment.packingRating %><%end%> stars and delivery <%if shopping_order_comment.deliveryRating== nil %> 0 <%else%>
+       <%= shopping_order_comment.deliveryRating %><%end%> stars on <%=shopping_order_comment.created_at%><br>
+      <p><%= shopping_order_comment.message %></p>
+      <hr>
+       
+    <% end %>
+
+    <%= link_to 'Back', shopping_orders_path ,:class=> "btn-default btn" %>
+
+<% if @shopping_order.customer_id == current_user.id && @shopping_order.currentStatus!="Delivered"%>
 <%= link_to 'Cancel the order', @shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger pull-right" %> 
 <% end %>
+  </div>
+  
+
+

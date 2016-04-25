@@ -1,6 +1,6 @@
 class PackingJobsController < ApplicationController
   before_action :set_packing_job, only: [:show, :edit, :update, :destroy]
-
+  before_action :must_be_admin_or_packer, only: [:edit, :update,:index,:show,:destroy]
   # GET /packing_jobs
   # GET /packing_jobs.json
   def index
