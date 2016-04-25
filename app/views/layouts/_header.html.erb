@@ -39,10 +39,20 @@
         <% if session[:cart_id]!=nil%>
         <li><a href="/carts/<%= session[:cart_id]%>">Cart</a></li>
         <%end%>
+        <li><a href="/categories">Departments</a></li>
+        
         <%if current_user && current_user.is_admin?%>
         <li><a href="/shop/floorLayout">Shop Layout</a></li>
         <li><a href="/shipping_manifests/">Shipping</a></li>
         <li><a href="/vans/">Van</a></li>
+         <li><%= link_to "Index of Users", users_path %></li>
+        <% elsif current_user && current_user.is_packer?%>
+        <li><%= link_to "Packing Jobs", packing_jobs_path%></li>
+        <% elsif current_user && current_user.is_driver?%>
+        
+          <li><a href="/shipping_manifests/">Shipping</a></li>
+          <li><a href="/vans/">Van</a></li>
+
         <%end%>
        
           
@@ -55,11 +65,9 @@
         
             <%if current_user.is_admin? %>
             <p>Administrator</p>
-             <%= link_to "Index of Users", users_path , :class => "btn"%>
-             <%= link_to "Packing Jobs", packing_jobs_path, :class => "btn" %>
-            <% elsif current_user.is_packer?%>
-            <p>Packer</p>
-            <%= link_to "Packing Jobs", packing_jobs_path, :class => "btn" %>
+            
+            
+           
             <% end %> 
            
         <% else %>
