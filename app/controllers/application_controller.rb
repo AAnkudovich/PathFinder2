@@ -75,4 +75,12 @@ class ApplicationController < ActionController::Base
         redirect_to root_path, notice: "Only admins and Drivers can go there"
       end
     end
+
+    def must_be_admin_or_customer_or_not_logged_in
+      if current_user
+       if current_user.is_packer? || current_user.is_driver?
+        redirect_to root_path, notice: "Packers and Drivers cant make orders"
+      end
+    end
+    end
 end
