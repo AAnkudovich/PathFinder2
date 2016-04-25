@@ -149,12 +149,30 @@
   <p>You arent meant to see this order</p>
   <%end%>
 <%end%>
+<div class="container">
+<% @shopping_order_comments = ShoppingOrderComment.where(shoppingOrderID: @shopping_order.id) %>
+
+<h1>User reviews regarding this order</h1>
 
 
 
+  
+    <% @shopping_order_comments.each do |shopping_order_comment| %>
+      
+        <%@reviewer= User.find(shopping_order_comment.userID) %>
+        <%= @reviewer.name %> has rated the packing <%if shopping_order_comment.packingRating== nil %> 0 <%else%><%= shopping_order_comment.packingRating %><%end%> stars and delivery <%if shopping_order_comment.deliveryRating== nil %> 0 <%else%>
+       <%= shopping_order_comment.deliveryRating %><%end%> stars on <%=shopping_order_comment.created_at%><br>
+      <p><%= shopping_order_comment.message %></p>
+      <hr>
+       
+    <% end %>
 
-<%= link_to 'Back', shopping_orders_path ,:class=> "btn-default btn" %>
+    <%= link_to 'Back', shopping_orders_path ,:class=> "btn-default btn" %>
 
 <% if @shopping_order.customer_id == current_user.id && @shopping_order.currentStatus!="Delivered"%>
 <%= link_to 'Cancel the order', @shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger pull-right" %> 
 <% end %>
+  </div>
+  
+
+
