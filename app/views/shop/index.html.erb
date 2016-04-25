@@ -85,6 +85,17 @@
 			
 
 <% end %>
+<hr>
+<h3>Browse by category</h3> 
+<% @categories = Category.all%>
+<div class="list-group panel">
+<% @categories.each do |category| %>
+      
+        <%= link_to category.name , category, :class => "list-group-item list-group-item-default" %>
+        
+      
+    <% end %>
+    </div>
 
 
 </div>
