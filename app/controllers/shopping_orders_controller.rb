@@ -50,6 +50,8 @@ class ShoppingOrdersController < ApplicationController
         
         @packing_job=createAPackingJob(@shopping_order.id)
         @shipping_job=createAshippingManifest(@shopping_order.id)
+        @message  = "New order created #{@shopping_order.id} ."
+        @adminnoti=createAdminNotification(@shopping_order.id, @message)
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to root_path, notice: 'Thank you for your order' }

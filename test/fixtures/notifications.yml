@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fromID: 1
+  toID: 1
+  message: MyText
+  regardingID: 1
+  seen: false
+
+two:
+  fromID: 1
+  toID: 1
+  message: MyText
+  regardingID: 1
+  seen: false

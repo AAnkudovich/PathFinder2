@@ -60,6 +60,14 @@ class ApplicationController < ActionController::Base
         @shipping_manifest = ShippingManifest.create(shippingHash)
         @shipping_manifest
     end
+    def createAdminNotification(shopping_order_id, message)
+        notificationHash= Hash.new
+        notificationHash["toID"]=1
+        notificationHash["regardingID"]=shopping_order_id
+        notificationHash["message"]=message
+        @notification = Notification.create(notificationHash)
+        @notification
+    end
     def must_be_admin
       unless current_user && current_user.is_admin?
         redirect_to root_path, notice: "Only admins can go there"

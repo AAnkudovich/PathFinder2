@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :notifications
   resources :shopping_order_comments
   resources :item_comments
   resources :vans
