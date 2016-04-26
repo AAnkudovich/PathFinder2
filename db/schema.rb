@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160425170946) do
     t.integer  "toID",        limit: 4
     t.text     "message",     limit: 65535
     t.integer  "regardingID", limit: 4
-    t.boolean  "seen"
+    t.boolean  "seen",                      default: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

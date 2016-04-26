@@ -56,9 +56,52 @@
        
           
         </li>
+      
+
+
+
       </ul>
       <div class="btn-group session-control-buttons navbar-right">
         <% if user_signed_in? %> 
+          <% @myNotifications = Notification.where(toID: current_user.id)%>
+          <% @unseenNotifications = Notification.where(toID: current_user.id).where(seen: 0).count%>
+        
+          <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html" class="btn btn-default"<% if @unseenNotifications!=0 %> style="color:red;"<%end%>>
+            <i class="glyphicon glyphicon-bell"></i><% if @unseenNotifications!=0 %><%= @unseenNotifications%><%end%>
+          </a>
+          
+          <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+            
+            <div class="notification-heading">
+              <h4 class="menu-title">Notifications</h4>
+            </div>
+            
+
+<% @myNotifications.each do |notification| %>
+      <div class="notifications-wrapper">
+            <% @shopping_order = ShoppingOrder.find(notification.regardingID) %>
+            <div class="notification-item">
+                <h4 class="item-title"><%= notification.message%> <%= link_to "View it here", @shopping_order %></h4>
+              </div>
+              </div>
+        
+    <% end %>
+          
+           
+
+             
+              
+               
+               
+            
+
+           
+            <li class="divider"></li>
+            <div class="notification-footer"><h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div>
+          
+          </ul>
+          
+        
         <a href="/users/sign_out" class="btn btn-default">Sign out</a>
         <a href="/users/<%= current_user.id %>/edit/" class="btn btn-default">Edit Your profile</a>
         
