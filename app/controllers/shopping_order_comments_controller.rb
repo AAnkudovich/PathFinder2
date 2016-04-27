@@ -1,6 +1,6 @@
 class ShoppingOrderCommentsController < ApplicationController
   before_action :set_shopping_order_comment, only: [:show, :edit, :update, :destroy]
-   before_action :authenticate_user!
+  
 
   # GET /shopping_order_comments
   # GET /shopping_order_comments.json
