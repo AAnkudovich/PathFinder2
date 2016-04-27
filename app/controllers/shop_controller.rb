@@ -4,6 +4,8 @@ class ShopController < ApplicationController
   def index
   	@items = Item.order("title asc").all
     @lineitem = Lineitem.new
+    @item_comments = ItemComment.all
+    @shopping_order_comments = ShoppingOrderComment.all
   end
   def floorLayout
   	@locations = Location.all
