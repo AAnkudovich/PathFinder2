@@ -76,7 +76,7 @@ Item.create(title: 'CD/DVD Drive',weight: 2,price: 90 ,fragile: 1,locationId:30 
 User.create(email: 'artemankudovich@gmail.com', password: '13245768', name: 'Artem' , is_admin: 1 , is_packer: 0, is_female: 0, address: '16 kilkenny street, castlecomer, co. kilkenny')
 # Packers
 User.create(email: 'artemankudovich@hotmail.com', password: 'ArtemPacker', name: 'ArtemPacker' , is_admin: 0 , is_packer: 1, is_female: 0, address: '157 roberthill kilkenny')
-User.create(email: 'artem.ankudovich@alanmoore.ie', password: 'Packer2', name: 'ArtemPacker2' , is_admin: 0 , is_packer: 1, is_female: 0, address: '21 dolphins road, dublin 8')
+User.create(email: 'artem.ankudovich@alanmoore.ie', password: 'ArtemPacker2', name: 'ArtemPacker2' , is_admin: 0 , is_packer: 1, is_female: 0, address: '21 dolphins road, dublin 8')
 # Driver 
 User.create(email: 'artem.ankudovich@taxworld.ie', password: '12345678', name: 'Driver 1' , is_admin: 0 , is_packer: 0, is_driver: 1 ,is_female: 0, address: 'The Mall, Co. Waterford')
 # Sample customers

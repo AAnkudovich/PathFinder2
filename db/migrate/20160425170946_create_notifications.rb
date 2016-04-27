@@ -5,7 +5,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :toID
       t.text :message
       t.integer :regardingID
-      t.boolean :seen
+      t.boolean :seen, default: false
 
       t.timestamps null: false
     end

@@ -1,16 +1,21 @@
-<h2>Forgot your password?</h2>
+<div class="col-sm-12">
+<img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1461783534/Screenshot_2016-04-27_19.58.32_rbjw04.png" style="width:100%;border-radius: 25px;">
+</div>
+<div class="col-sm-6 col-sm-offset-3">
+	<h2>Forgot your password?</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true, :class => "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "Send me reset password instructions" , :class => "btn btn-success pull-right" %>
   </div>
 <% end %>
 
 <%= render "users/shared/links" %>
+</div>

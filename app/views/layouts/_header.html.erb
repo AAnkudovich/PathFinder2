@@ -63,12 +63,13 @@
       </ul>
       <div class="btn-group session-control-buttons navbar-right">
         <% if user_signed_in? %> 
-          <% @myNotifications = Notification.where(toID: current_user.id)%>
+          <% @myNotifications = Notification.where(toID: current_user.id).order("created_at DESC")%>
           <% @unseenNotifications = Notification.where(toID: current_user.id).where(seen: 0).count%>
         
-          <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html" class="btn btn-default"<% if @unseenNotifications!=0 %> style="color:red;"<%end%>>
+          <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="" class="btn btn-default"<% if @unseenNotifications!=0 %> style="color:red;"<%end%>>
             <i class="glyphicon glyphicon-bell"></i><% if @unseenNotifications!=0 %><%= @unseenNotifications%><%end%>
           </a>
+
           
           <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
             
@@ -77,13 +78,54 @@
             </div>
             
 
-<% @myNotifications.each do |notification| %>
-      <div class="notifications-wrapper">
-            <% @shopping_order = ShoppingOrder.find(notification.regardingID) %>
-            <div class="notification-item">
-                <h4 class="item-title"><%= notification.message%> <%= link_to "View it here", @shopping_order %></h4>
+<% @myNotifications[0..5].each do |notification| %>
+      <div class="notifications-wrapper <%if !notification.seen?%>alert-success<%end%>">
+           
+            <div class="notification-item <%=notification.id%> ">
+                <h4 class="item-title"><%= notification.message%> </h4>
+                <%if !notification.seen?%>
+                <%= form_for(notification) do |f| %>
+
+  
+                    <%= f.hidden_field :seen,  :value => '1' %>
+                 
+                  
+                    <%= f.submit "Dismiss",:class=>"btn btn-default "  %>
+                  
+                  <% end %>
+                  <%end%>
+                
+                <hr>
               </div>
               </div>
+               <script  type="text/javascript">
+                  jQuery(document).ready(function($) {
+                  <%if notification.message=="Item was reviewed"%>
+                  <% @item=Item.find(notification.regardingID)%>
+                  $(".<%=notification.id%>").wrap( "<a href='/items/<%=@item.id%>'></a>" );
+
+                  <%elsif notification.message=="New order created" || notification.message=="Shopping Order packed" || notification.message=="Your order is packed and will be shipped shortly"%>
+                  <% @shoppingOrder = ShoppingOrder.find(notification.regardingID)%>
+                    $(".<%=notification.id%>").wrap( "<a href='/shopping_orders/<%=@shoppingOrder.id%>'></a>" );
+
+                  <%elsif notification.message=="New packing job created"%>
+                  <% @packingJob = PackingJob.find(notification.regardingID)%>
+                    $(".<%=notification.id%>").wrap( "<a href='/packing_jobs/<%=@packingJob.id%>'></a>" );
+
+                  <%elsif notification.message=="Order ready for delivery"%>
+                    $(".<%=notification.id%>").wrap( "<a href='/shipping_manifests/'></a>" );
+
+                  <%elsif notification.message=="Van has been packed"%>
+                    $(".<%=notification.id%>").wrap( "<a href='/vans/<%=notification.regardingID%>'></a>" );
+
+
+
+
+                  <%end%>
+
+                    });
+
+                   </script>
         
     <% end %>
           
@@ -97,7 +139,8 @@
 
            
             <li class="divider"></li>
-            <div class="notification-footer"><h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div>
+            <a href="/notifications/">
+            <div class="notification-footer"><h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div></a>
           
           </ul>
           

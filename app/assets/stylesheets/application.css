@@ -64,3 +64,6 @@
 .dropdown-menu{
 	width: 400px;
 }
+.col-sm-6 .btn{
+	margin-top: 10px;
+}
