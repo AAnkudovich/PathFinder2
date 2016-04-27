@@ -1,4 +1,5 @@
 class ShopController < ApplicationController
+   before_action :authenticate_user!
   before_action :must_be_admin, only: [:floorLayout, :pathSearch,:usersList]
   def index
   	@items = Item.order("title asc").all

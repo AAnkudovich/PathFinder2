@@ -1,12 +1,19 @@
-<%= @user.email %><br>
-<%= @user.name %><br>
-<%= @user.date_of_birth %><br>
-<%= @user.is_admin %><br>
-<%= @user.is_packer %><br>
-<%= @user.address %><br>
-<%= @user.distance_to("DIT Aungier Street Dublin")%>
-<%= link_to 'Edit', edit_user_path(@user) %>
+<div class="col-sm-6">
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@user.latitude}%2C#{@user.longitude}" %>
+</div>
+<div class="col-sm-6">
+<strong>User email</strong>:<%= @user.email %><br>
+<strong>Name</strong>:<%= @user.name %><br>
+<strong>Date od Birth</strong>:<%= @user.date_of_birth %><br>
+<strong>Admin</strong>:<%= @user.is_admin %><br>
+<strong>Packer</strong>:<%= @user.is_packer %><br>
+<strong>Driver</strong>:<%= @user.is_driver %><br>
+<strong>Users Delivery Address</strong>:<%= @user.address %><br>
+<strong>Distance from WareHouse</strong>:<%= @user.distance_to("DIT Aungier Street Dublin")%>
+<%if current_user.is_admin? %>
+<strong></strong>:<%= link_to 'Edit', edit_user_path(@user) %>
+<%end%>
+<%if !@user.is_packer? || !@user.is_packer?%>
 <h1>Shopping orders</h1>
 <table>
 <% @currentUsersOrders.each do |shopping_order| %>
@@ -21,6 +28,7 @@
               </tr>
             <% end %>
         </table>
+        <%end%>
 
         <%if @user.is_packer%>
         <h1>Packing jobs</h1>
@@ -69,3 +77,4 @@
   </tbody>
 </table>
         <%end%>
+      </div>

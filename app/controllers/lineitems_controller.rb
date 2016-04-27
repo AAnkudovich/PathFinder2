@@ -1,5 +1,6 @@
 class LineitemsController < ApplicationController
   before_action :set_lineitem, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :must_be_admin, only: [:index]
   before_action :must_be_admin_or_customer_or_not_logged_in, only: [:edit, :create,:new]
   # GET /lineitems

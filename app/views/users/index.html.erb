@@ -1,6 +1,7 @@
 <ul class="nav nav-tabs " style="margin-bottom:20px;">
                <li class="active"><a id="customers_select">Customers</a></li>
                 <li><a id="packers_select">Packers</a></li>
+                <li><a id="drivers_select">Drivers</a></li>
             </ul>
 <table>
 	<tr>
@@ -9,7 +10,7 @@
 		<th style="width:20%;">Last sign in</th>
 	</tr>
 <% @users.each do |user| %>
-<tr class="<%= user.is_packer %> " <% if user.is_admin %> style="display:none;" <%end%>>
+<tr class="<%if user.is_packer? %>packer<%end%> <%if user.is_driver? %>driver<%end%> <%if !user.is_packer? && !user.is_driver?%>customer<%end%>" <% if user.is_admin %> style="display:none;" <%end%>>
 <td><%= link_to user.name, user %></td>
 <td><%= mail_to user.email %></td>
 <td><%= user.last_sign_in_at %></td>
@@ -20,19 +21,29 @@
 
 <script  type="text/javascript">
   jQuery(document).ready(function($) {
-      $(".true").addClass("hidden");
+      $(".packer").addClass("hidden");
+      $(".driver").addClass("hidden");
 
       $( "#packers_select" ).click(function() {
         $(".active").removeClass("active");
         $("#packers_select").parents("li:first").addClass("active");
-        $(".true").removeClass("hidden");
-        $(".false").addClass("hidden");
+        $(".packer").removeClass("hidden");
+        $(".driver").addClass("hidden");
+        $(".customer").addClass("hidden");
       });
       $( "#customers_select" ).click(function() {
         $(".active").removeClass("active");
         $("#customers_select").parents("li:first").addClass("active");
-        $(".true").addClass("hidden");
-        $(".false").removeClass("hidden");
+        $(".customer").removeClass("hidden");
+        $(".driver").addClass("hidden");
+        $(".packer").addClass("hidden");
+      });
+      $( "#drivers_select" ).click(function() {
+        $(".active").removeClass("active");
+        $("#drivers_select").parents("li:first").addClass("active");
+        $(".driver").removeClass("hidden");
+        $(".customer").addClass("hidden");
+        $(".packer").addClass("hidden");
       });
 
 
