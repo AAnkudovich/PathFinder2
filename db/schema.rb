@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423091133) do
+ActiveRecord::Schema.define(version: 20160425170946) do
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -72,6 +72,16 @@ ActiveRecord::Schema.define(version: 20160423091133) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "fromID",      limit: 4
+    t.integer  "toID",        limit: 4
+    t.text     "message",     limit: 65535
+    t.integer  "regardingID", limit: 4
+    t.boolean  "seen",                      default: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
   create_table "packing_jobs", force: :cascade do |t|
     t.integer  "customer_id",      limit: 4
     t.integer  "shoppingOrder_id", limit: 4
@@ -90,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160423091133) do
 
   create_table "shopping_order_comments", force: :cascade do |t|
     t.integer  "userID",          limit: 4
+    t.integer  "packingRating",   limit: 4
     t.integer  "shoppingOrderID", limit: 4
     t.integer  "deliveryRating",  limit: 4
     t.text     "message",         limit: 65535
@@ -135,6 +146,7 @@ ActiveRecord::Schema.define(version: 20160423091133) do
 
   create_table "vans", force: :cascade do |t|
     t.string   "regPlate",   limit: 255
+    t.integer  "driverID",   limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

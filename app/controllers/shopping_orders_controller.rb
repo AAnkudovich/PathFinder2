@@ -50,6 +50,10 @@ class ShoppingOrdersController < ApplicationController
         
         @packing_job=createAPackingJob(@shopping_order.id)
         @shipping_job=createAshippingManifest(@shopping_order.id)
+        @message  = "New order created"
+        @adminnoti=createAdminNotification(@shopping_order.id, @message)
+        
+
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to root_path, notice: 'Thank you for your order' }
@@ -78,6 +82,21 @@ class ShoppingOrdersController < ApplicationController
           shippingman= Hash.new
           shippingman["shippingStatus"]="Packed ready to ship"
           @shipping_manifest[0].update(shippingman)
+          @message3 = "Order ready for delivery"
+          
+          @drivers = User.where(is_driver: 1)
+          @drivers.each do |driver|
+          @notification = createDriverNotificationNewJob(@shopping_order.id, driver.id, @message3)
+          end
+
+        @shoppingOrder = ShoppingOrder.find(@shopping_order.id)
+        @message= "Shopping Order packed"
+        @notification = createAdminNotification(@shoppingOrder.id, @message)
+
+        @user = User.find(@shopping_order.customer_id)
+        @message2= "Your order is packed and will be shipped shortly"
+        @notification2 = createCustomerNotificationNewJob(@shoppingOrder.id, @user.id, @message2)
+
         end
         format.html { redirect_to :back, notice: 'Shopping order was successfully updated.' }
         format.json { render :show, status: :ok, location: @shopping_order }

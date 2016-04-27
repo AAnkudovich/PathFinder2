@@ -66,7 +66,11 @@ class VansController < ApplicationController
           @following_shipping_manifests.each do |shippingMan|
             shippingMan.update(followingshippingHash)
           end
+
         end
+        @message="Van has been packed"
+        @adminnoti=createAdminNotification(@van.id, @message)
+        @drivernoti=createDriverNotificationNewJob(@van.id,@van.driverID, @message)
       end
 
       end

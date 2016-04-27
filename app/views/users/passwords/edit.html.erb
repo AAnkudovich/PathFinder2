@@ -1,4 +1,8 @@
-<h2>Change your password</h2>
+div class="col-sm-12">
+<img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1461783534/Screenshot_2016-04-27_19.58.32_rbjw04.png" style="width:100%;border-radius: 25px;">
+</div>
+<div class="col-sm-6 col-sm-offset-3">
+  <h2>Change your password</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -9,17 +13,18 @@
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "off" , :class => "form-control"%>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off"  , :class => "form-control"%>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
+  <div class="actions text-center">
+    <%= f.submit "Change my password" , :class => "btn btn-success" %>
   </div>
 <% end %>
 
 <%= render "users/shared/links" %>
+</div>

@@ -1,7 +1,7 @@
 class LineitemsController < ApplicationController
   before_action :set_lineitem, only: [:show, :edit, :update, :destroy]
   before_action :must_be_admin, only: [:index]
-  before_action :must_be_admin_or_customer_or_not_logged_in, only: [:edit, :update,:create,:new]
+  before_action :must_be_admin_or_customer_or_not_logged_in, only: [:edit, :create,:new]
   # GET /lineitems
   # GET /lineitems.json
   def index

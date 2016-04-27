@@ -1,20 +1,24 @@
-<h2>Sign up</h2>
+<div class="col-sm-12">
+<img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1461783534/Screenshot_2016-04-27_19.58.32_rbjw04.png" style="width:100%;border-radius: 25px;">
+</div>
+<div class="col-sm-6 col-sm-offset-3">
+  <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.text_field :name, autofocus: true , :class => "form-control"%>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email%>
+    <%= f.email_field :email, :class => "form-control"%>
   </div>
   <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <%= f.text_field :address , :class => "form-control"%>
   </div>
 
   <div class="field">
@@ -22,21 +26,23 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off" , :class => "form-control"%>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" , :class => "form-control"%>
   </div>
   <div><%= f.label :date_of_birth %><br />
-        <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916%>
+        <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916 %>
     </div>
     <hr>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up" , :class => "btn btn-success pull-right"%>
   </div>
 <% end %>
 
 <%= render "users/shared/links" %>
+
+</div>

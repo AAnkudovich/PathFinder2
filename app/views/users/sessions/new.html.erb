@@ -1,14 +1,18 @@
+<div class="col-sm-12">
+<img src="http://res.cloudinary.com/dp20nga5l/image/upload/v1461783534/Screenshot_2016-04-27_19.58.32_rbjw04.png" style="width:100%;border-radius: 25px;">
+</div>
+<div class="col-sm-6 col-sm-offset-3">
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true, :class => "form-control"  %>
   </div>
 
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off" , :class => "form-control" %>
   </div>
 
   <% if devise_mapping.rememberable? -%>
@@ -19,8 +23,10 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "Log in", :class => "btn btn-success" %>
   </div>
 <% end %>
-
+<div class="pull-right">
 <%= render "users/shared/links" %>
+</div>
+</div>

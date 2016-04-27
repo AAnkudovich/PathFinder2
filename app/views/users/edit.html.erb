@@ -1,12 +1,12 @@
-<% if current_user && current_user.is_admin?%>
-<%= @user.email %><br>
-<%= @user.name %><br>
-<%= @user.date_of_birth %><br>
-<%= @user.is_admin %><br>
-<%= @user.is_packer %><br>
+<div class="col-sm-6 col-sm-offset-3">
+    <% if current_user && current_user.is_admin?%>
+
 <%= form_for(@user) do |f| %>
+
+
+
  <div><%= f.label :name %><br />
-        <%= f.text_field :name, autofocus: true %></div>
+        <%= f.text_field :name, autofocus: true , :class => "form-control"%></div>
         
 
         <%= f.radio_button :is_female, true %> <%= f.label :is_female, "Female" %>
@@ -22,17 +22,14 @@
         <%= f.date_select :date_of_birth ,:start_year=>Date.today.year - 18, :end_year=>1916%></div>
 
     <div><%= f.label :email %><br />
-        <%= f.email_field :email %></div>
+        <%= f.email_field :email , :class => "form-control"%></div>
         <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address %></div>
-    <% if current_user.id == @user.id %>
-
-    <%end%>
-
+    <%= f.text_field :address , :class => "form-control"%></div>
+   
     
 
-<div><%= f.submit "Update" %></div>
+<div><%= f.submit "Update" , :class => "btn btn-success pull-right"%></div>
  <% end %>
  <% elsif current_user && current_user.id == @user.id%>
  <%= @user.email %><br>
@@ -67,7 +64,8 @@
 
     
 
-<div><%= f.submit "Update" %></div>
+<div><%= f.submit "Update", :class => "btn btn-success pull-right" %></div>
+
  <% end %>
  <% else %>
  <div class="alert alert-danger">
@@ -75,4 +73,4 @@
  <%= link_to "Back to home page", root_path, :method => :get, :class => "btn btn-default"  %>
  </div>
  <%end%>
-
+</div>
