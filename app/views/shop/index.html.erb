@@ -134,11 +134,12 @@ Out of <%= @totalreviews%> item reviews submited
 
 </script>
 <br>
-Out of <%= @shopping_order_comments.count%> item reviews submited
+Out of <%= @shopping_order_comments.count%> order reviews submited
 
 <%end%>
 	
 	<% if session[:cart_id]!=nil%>
+	<hr>
 	<h3>Your Current cart</h3>
 	<% @cart = Cart.find(session[:cart_id])
 	 @total = 0
@@ -157,13 +158,14 @@ Out of <%= @shopping_order_comments.count%> item reviews submited
 		<div class="btn-group pull-right">
 			<%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
 			<%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+
 			</div>
 
 			<%else%>
 			
 
 <% end %>
-<hr>
+<div class="col-sm-12">
 <h3>Browse by category</h3> 
 <% @categories = Category.all%>
 <div class="list-group panel">
@@ -176,5 +178,6 @@ Out of <%= @shopping_order_comments.count%> item reviews submited
     </div>
 
 
+</div>
 </div>
 
