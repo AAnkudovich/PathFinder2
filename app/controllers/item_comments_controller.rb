@@ -32,7 +32,7 @@ class ItemCommentsController < ApplicationController
         @item = Item.find(@item_comment.itemID);
         @message= "Item was reviewed"
         @notification = createAdminNotification(@item.id, @message)
-        format.html { redirect_to @item_comment, notice: 'Item comment was successfully created.' }
+        format.html { redirect_to :back, notice: 'Item comment was successfully created.' }
         format.json { render :show, status: :created, location: @item_comment }
       else
         format.html { render :new }
