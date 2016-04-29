@@ -1,3 +1,5 @@
+
+
 <%= form_for(@shopping_order) do |f| %>
   <% if @shopping_order.errors.any? %>
     <div id="error_explanation">
@@ -15,7 +17,7 @@
   
 
     
-  <table>
+  <table style="width:100%;">
    <% @cart = Cart.find(session[:cart_id])%>
    <% @total=0 %>
     <% @cart.lineitems.each do |litem| %> <tr>
@@ -24,16 +26,17 @@
     <td><%= number_to_currency(litem.item.price, :unit => '€' )  %></td>
     <td><strong> Total: <%= number_to_currency(litem.item.price*litem.quantity, :unit => '€' )  %></strong></td>
     <td><%= link_to  litem, method: :delete, data: { confirm: 'Are you sure?' } do %>
-      <i class="fa fa-times"></i> Remove
-    <% end %>
-    <% @total = @total + (litem.item.price*litem.quantity) %>
-</tr>
-    <% end %> </table>
+          <i class="fa fa-times"></i> Remove
+        <% end %>
+        <% @total = @total + (litem.item.price*litem.quantity) %>
+    </tr>
+    <% end %> 
+  </table>
 
-    <div class="field">
-    <strong>Order Total: €</strong>
-    <%= f.text_field :total , :value => @total ,:readonly => true%>
-  </div>
+   
+    <%= f.hidden_field :total , :value => @total ,:readonly => true%>
+  <div class="col-sm-12 ">
+    <div class="text-center" style="margin-top:20px;">
   <div class="stripe-button">
   <%= form_tag  do %>
   <article>
@@ -47,9 +50,9 @@
     </label>
   </article>
   <div class="field">
-    <%= f.label :payMethod %>
+    <strong>Payment Method:</strong>
     <%= f.select :payMethod , ["Debit Card", "Credit Card"] %> </div>
-
+<p>&nbsp;</p>
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Shopping order payments"
@@ -59,7 +62,7 @@
           ></script>
 <% end %>
 </div>
-  
-  
+  </div>
+  </div>
   
 <% end %>

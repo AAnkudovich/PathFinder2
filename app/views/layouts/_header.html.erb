@@ -35,13 +35,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/items">Items</a></li>
+        <%if current_user%>
         <li><a href="/shopping_orders">Orders</a></li>
+        <%end%>
         <% if session[:cart_id]!=nil%>
         <li><a href="/carts/<%= session[:cart_id]%>">Cart</a></li>
         <%end%>
         
         <%if current_user && current_user.is_admin?%>
-        <li><a href="/shop/floorLayout">Shop Layout</a></li>
+        <li><a href="/locations">Shelves</a></li>
+        <li><%= link_to "Packing Jobs", packing_jobs_path%></li>
         <li><a href="/shipping_manifests/">Shipping</a></li>
         <li><a href="/vans/">Van</a></li>
          <li><%= link_to "Index of Users", users_path %></li>

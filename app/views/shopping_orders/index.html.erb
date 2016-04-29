@@ -27,9 +27,8 @@
                   <td style="width:20%;"><%= shopping_order.total %></td>
                   <td style="width:20%;"><%= shopping_order.currentStatus %></td>
                   <td style="width:20%;"><div class="btn-group pull-right" style="padding-bottom:10px;">
-                  <%= link_to 'Show', shopping_order ,:class => "btn btn-success " %>
-                  <%= link_to 'Edit', edit_shopping_order_path(shopping_order) ,:class => "btn btn-primary " %>
-                  <%= link_to 'Destroy', shopping_order, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "btn btn-danger " %>
+                  <%= link_to 'View', shopping_order ,:class => "btn btn-success " %>
+                  
                 </div>
                 </td>
                 </tr>
@@ -42,7 +41,7 @@
                 <td style="width:20%;"><%= shopping_order.payMethod %></td>
                 <td style="width:20%;"><%= shopping_order.total %></td>
                 <td style="width:20%;"><%= shopping_order.currentStatus %></td>
-                <td style="width:20%;"><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                <td style="width:20%;"><%= link_to 'View', shopping_order ,:class => "btn btn-success pull-right" %></td>
                 
               </tr>
             <% end %>
@@ -56,7 +55,7 @@
                 <td style="width:20%;"><%= shopping_order.total %></td>
                 <td style="width:20%;"><%= shopping_order.currentStatus %></td>
                 
-                <td style="width:20%;"><%= link_to 'Show', shopping_order ,:class => "btn btn-success pull-right" %></td>
+                <td style="width:20%;"><%= link_to 'View', shopping_order ,:class => "btn btn-success pull-right" %></td>
                 
               </tr>
             <% end %>

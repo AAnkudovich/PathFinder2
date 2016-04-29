@@ -3,7 +3,12 @@
   <div class="alert alert-info">
 
 <h1>Listing Items</h1>
+
 </div>
+
+<%if  current_user&& current_user.is_admin?%>
+<a href="/items/new" class="btn btn-success pull-right">Create new item</a>
+<%end%>
 <p>We have <%=@items.size%> items matching your request</p>
 
     <% @items.each do |item| %>
@@ -31,7 +36,7 @@
       
       
       <div class="col-sm-4">
-        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => item.quantity%>
+        <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 1, :max => item.quantity%>
       </div>
         </div>
 
