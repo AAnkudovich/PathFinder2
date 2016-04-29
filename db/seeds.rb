@@ -36,36 +36,6 @@ Item.create(title: 'VW Suspension coil',weight: 3 ,price: 80,fragile: 0 ,locatio
 Item.create(title: 'DDR3 1Gb RAM Chip',weight: 0.1,price: 35,fragile: 1,locationId:29 ,boxId:1 ,quantity:100,categoryID:7, image:'http://cdn.shopclues.net/images/detailed/1182/ddrram_1378643617.png')
 Item.create(title: 'CD/DVD Drive',weight: 2,price: 90 ,fragile: 1,locationId:30 ,boxId:2 ,quantity:100,categoryID:7, image:'https://www.quietpc.com/images/products/lo-dvd-drive-large.jpg')
 
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:49 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:50 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:60 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:61 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:62 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:63 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:64 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:65 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:66 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:67 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:68 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:69 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:70 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:71 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:72 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:73 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:75 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:76 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:77 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:78 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:79 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:80 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:81 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:82 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:83 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:84 ,boxId: ,quantity:100,categoryID:, image:'')
-# Item.create(title: '',weight: ,price: ,fragile: ,locationId:87 ,boxId: ,quantity:100,categoryID:, image:'')
-
-
-
 
 
 
