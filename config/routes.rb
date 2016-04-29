@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :items
   devise_for :users, controllers: { registrations: "registrations" }
   resources :users
-  root to: "shop#index"
+  get "/" => 'shop#index', :as => 'root'
   resources :carts do
     resources :lineitems
   end
