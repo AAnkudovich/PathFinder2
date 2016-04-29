@@ -1,5 +1,6 @@
 class ItemCommentsController < ApplicationController
   before_action :set_item_comment, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :must_be_admin, only: [:edit, :update,:index,:show,:destroy]
   # GET /item_comments
   # GET /item_comments.json
@@ -31,7 +32,7 @@ class ItemCommentsController < ApplicationController
         @item = Item.find(@item_comment.itemID);
         @message= "Item was reviewed"
         @notification = createAdminNotification(@item.id, @message)
-        format.html { redirect_to @item_comment, notice: 'Item comment was successfully created.' }
+        format.html { redirect_to :back, notice: 'Item comment was successfully created.' }
         format.json { render :show, status: :created, location: @item_comment }
       else
         format.html { render :new }

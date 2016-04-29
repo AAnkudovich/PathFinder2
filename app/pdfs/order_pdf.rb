@@ -5,7 +5,7 @@ class OrderPdf < Prawn::Document
 		@shoppingOrder= shoppingOrder
 		@user= User.find(@shoppingOrder.customer_id)
 		@view = view
-		image "#{Rails.root}/app/assets/images/aalogo.png", height: 70
+		image "#{Rails.root}/app/assets/images/Drawing.png", height: 70
 		order_number
 		line_items
 		total_price

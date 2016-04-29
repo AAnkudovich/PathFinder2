@@ -41,7 +41,7 @@
   
   
   <div class="col-sm-4">
-    <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 0, :max => item.quantity%>
+    <%= f.number_field :quantity, :class => " text-center form-control bfh-number pull-right", :value => 1 ,:min => 1, :max => item.quantity%>
   </div>
   	</div>
 
@@ -59,8 +59,87 @@
 	<% end %>
 </div>
 <div class="col-sm-3">	
+
+<% @totalreviews = @item_comments.count%>
+<%if @totalreviews!=0%>
+
+<%@total=0%>
+<% @item_comments.each do |item_comment| %>
+	<%@total=@total+item_comment.rating%>
+<%end%>
+<h4>Our products have scored</h4>
+
+<i class="fa selecting fa-star-o" aria-hidden="true" value="1"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="2"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="3"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="4"></i>
+    <i class="fa selecting fa-star-o" aria-hidden="true" value="5"></i>
+
+<script  type="text/javascript">
+    jQuery(document).ready(function($) {
+      $rating = <%= @total/ @totalreviews%>;
+      while ($rating!=0){
+      	$(".selecting[value="+$rating+"]").removeClass("fa-star-o").addClass("fa-star");
+      	$rating=$rating-1;
+      }
+	});
+
+</script>
+
+<br>
+Out of <%= @totalreviews%> item reviews submited
+<%@deliveryrate=0%>
+<%@packingrate=0%>
+<% @shopping_order_comments.each do |shopping_order_comment| %>
+<%@deliveryrate=@deliveryrate+shopping_order_comment.deliveryRating%>
+<%@packingrate=@packingrate+shopping_order_comment.packingRating%>
+<%end%>
+<br>
+<%end%>
+<% if @shopping_order_comments.count!=0%>
+<h4>We also scored:</h4>
+<strong>Packing</strong>
+<i class="fa packing fa-star-o" aria-hidden="true" value="1"></i>
+    <i class="fa packing fa-star-o" aria-hidden="true" value="2"></i>
+    <i class="fa packing fa-star-o" aria-hidden="true" value="3"></i>
+    <i class="fa packing fa-star-o" aria-hidden="true" value="4"></i>
+    <i class="fa packing fa-star-o" aria-hidden="true" value="5"></i>
+
+<script  type="text/javascript">
+    jQuery(document).ready(function($) {
+      $ratingPack = <%= @packingrate/ @shopping_order_comments.count%>;
+      while ($ratingPack!=0){
+      	$(".packing[value="+$ratingPack+"]").removeClass("fa-star-o").addClass("fa-star");
+      	$ratingPack=$ratingPack-1;
+      }
+	});
+
+</script>
+<br>
+<strong>Delivery</strong>
+<i class="fa delivery fa-star-o" aria-hidden="true" value="1"></i>
+    <i class="fa delivery fa-star-o" aria-hidden="true" value="2"></i>
+    <i class="fa delivery fa-star-o" aria-hidden="true" value="3"></i>
+    <i class="fa delivery fa-star-o" aria-hidden="true" value="4"></i>
+    <i class="fa delivery fa-star-o" aria-hidden="true" value="5"></i>
+
+<script  type="text/javascript">
+    jQuery(document).ready(function($) {
+      $ratingDel = <%= @deliveryrate/ @shopping_order_comments.count%>;
+      while ($ratingDel!=0){
+      	$(".delivery[value="+$ratingDel+"]").removeClass("fa-star-o").addClass("fa-star");
+      	$ratingDel=$ratingDel-1;
+      }
+	});
+
+</script>
+<br>
+Out of <%= @shopping_order_comments.count%> order reviews submited
+
+<%end%>
 	
 	<% if session[:cart_id]!=nil%>
+	<hr>
 	<h3>Your Current cart</h3>
 	<% @cart = Cart.find(session[:cart_id])
 	 @total = 0
@@ -79,13 +158,14 @@
 		<div class="btn-group pull-right">
 			<%= link_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', :class => "btn btn-default"   %>
 			<%= link_to 'Checkout', new_shopping_order_path, :method => :get, :class => "btn btn-default"   %>
+
 			</div>
 
 			<%else%>
 			
 
 <% end %>
-<hr>
+<div class="col-sm-12">
 <h3>Browse by category</h3> 
 <% @categories = Category.all%>
 <div class="list-group panel">
@@ -98,5 +178,6 @@
     </div>
 
 
+</div>
 </div>
 

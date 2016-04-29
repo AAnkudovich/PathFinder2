@@ -1,10 +1,12 @@
 class NotificationsController < ApplicationController
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :must_be_admin, only: [:index,:show,:destroy]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    
   end
 
   # GET /notifications/1

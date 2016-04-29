@@ -1,5 +1,6 @@
 class ShoppingOrderCommentsController < ApplicationController
   before_action :set_shopping_order_comment, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /shopping_order_comments
   # GET /shopping_order_comments.json
@@ -28,7 +29,7 @@ class ShoppingOrderCommentsController < ApplicationController
 
     respond_to do |format|
       if @shopping_order_comment.save
-        format.html { redirect_to @shopping_order_comment, notice: 'Shopping order comment was successfully created.' }
+        format.html { redirect_to :back, notice: 'Shopping order comment was successfully created.' }
         format.json { render :show, status: :created, location: @shopping_order_comment }
       else
         format.html { render :new }

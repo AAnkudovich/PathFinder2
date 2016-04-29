@@ -361,6 +361,12 @@
     jQuery(document).ready(function($) {
       var str ='.'+ <%= location.lat %> + '-' + <%= location.lon %>;
       $(str).css({"background-color": "gray"}).html("X");
+      $(str).click(function(){
+        if (window.confirm('Shelf located at :  <%= location.lat %>-<%= location.lon %> \nIf you click "ok" you would be redirected to editing page. ')) 
+        {
+        window.location.href='/locations/<%= location.id%>/edit';
+        };
+      });
   
       });
 

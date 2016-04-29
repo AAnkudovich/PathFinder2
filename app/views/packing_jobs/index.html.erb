@@ -34,10 +34,7 @@
         <td >
           <div class="btn-group pull-right">
         <%= link_to 'Show', packing_job , :class => "btn btn-default" %>
-        <%if current_user.is_admin? %>
-          <%= link_to 'Edit', edit_packing_job_path(packing_job), :class => "btn btn-default"  %>
-          <%= link_to 'Destroy', packing_job, method: :delete, data: { confirm: 'Are you sure?' } , :class => "btn btn-danger" %>
-        <%end%>
+       
       </div>
       </td>
       </tr>

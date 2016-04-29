@@ -1,5 +1,6 @@
 class VansController < ApplicationController
   before_action :set_van, only: [:show, :edit, :update, :destroy]
+   before_action :authenticate_user!
   before_action :must_be_admin_or_driver, only: [:edit, :update,:index,:show,:destroy,:new,:create]
   
 

@@ -1,3 +1,4 @@
+<div class="col-sm-6">
 <%= form_for(@location) do |f| %>
   <% if @location.errors.any? %>
     <div id="error_explanation">
@@ -11,19 +12,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.number_field :lat ,:readonly => true%>
-  </div>
-  <div class="field">
-    <%= f.label :lon %><br>
-    <%= f.number_field :lon ,:readonly => true%>
-  </div>
+<div class="alert alert-warning">
+      <p>Please select shelf location for new shelf by clicking anywhere on the green area </p>
+      <p> </p>
+    </div>
   <h3 id="indicator-of-click"></h3>
   <%= render 'layouts/shopGridForNewShelf' %>
 
-  
+</div>
+  <div class="col-sm-6">
+  <div class="field">
+    <%= f.label :lat %><br>
+    <%= f.number_field :lat ,:readonly => true , :class => "form-control", :required => true%>
+  </div>
+  <div class="field">
+    <%= f.label :lon %><br>
+    <%= f.number_field :lon ,:readonly => true, :class => "form-control", :required => true%>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit',:class => "btn btn-success pull-right" %>
   </div>
 <% end %>
+</div>

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+	before_action :authenticate_user!
+	before_action :must_be_admin, only: [:index,:show,:destroy]
 	def show
 	@user = User.find(params[:id])
 	@currentUsersOrders = ShoppingOrder.where(customer_id: @user.id).to_a

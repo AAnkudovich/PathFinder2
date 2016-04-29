@@ -13,33 +13,33 @@
 <div class="col-md-6">
   <div class="field">
     <%= f.label :image %><br>
-    <%= f.text_field :image %>
+    <%= f.text_field :image, :class => "form-control"%>
   </div>
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title , :class => "form-control"%>
   </div>
+  <label for="Category">Category</label>
   <% @categories = Category.all%>
   <%= f.collection_select(:categoryID, @categories, :id, :name, :prompt => 'Select') %>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description , :class => "form-control"%>
   </div>
   <div class="field">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.text_field :price , :class => "form-control"%>
   </div>
   <div class="field">
     <%= f.label :quantity %><br>
-    <%= f.number_field :quantity %>
+    <%= f.number_field :quantity , :class => "form-control"%>
   </div>
-  <div class="field">
-    <%= f.label :locationId %><br>
-    <%= f.number_field :locationId ,:readonly => true%>
-  </div>
+  
+    <%= f.hidden_field :locationId ,:readonly => true, :required => true%>
+ 
   <div class="field">
     <%= f.label :boxId %><br>
-    <%= f.number_field :boxId %>
+    <%= f.number_field :boxId, :class => "form-control" %>
   </div>
   <div class="field">
     <%= f.label :fragile %><br>
@@ -47,14 +47,27 @@
   </div>
   <div class="field">
     <%= f.label :weight %><br>
-    <%= f.text_field :weight %>
+    <%= f.text_field :weight , :class => "form-control"%>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit',:class => "btn btn-success pull-right"%>
   </div>
   </div>
   <div class="col-md-6">
-  <%= render 'layouts/shopGridForNewItemOnTheShelf' %>
+    <div class="alert alert-warning">
+      <p>Please select shelf where this item will be located by clicking a green X</p>
+      <p> To prevent unassigned items submit will not regiester unless location is picked</p>
+    </div>
+      <%= render 'layouts/shopGridForNewItemOnTheShelf' %>
+
   </div>
 <% end %>
+
+<script  type="text/javascript">
+      jQuery(document).ready(function($) {
+          $("#item_categoryID").addClass("form-control");
+  
+        });
+   
+       </script>
