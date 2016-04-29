@@ -68,12 +68,12 @@
 
 <script  type="text/javascript">
   jQuery(document).ready(function($) {
-      $(".Shipped").addClass("hidden");
+      $(".Delivered").addClass("hidden");
 
       $( "#completed_select" ).click(function() {
         $(".active").removeClass("active");
         $("#completed_select").parents("li:first").addClass("active");
-        $(".Shipped").removeClass("hidden");
+        $(".Delivered").removeClass("hidden");
         $(".Submited").addClass("hidden");
         $(".Currently.Packing").addClass("hidden");
         $(".Packed.and.ready.to.ship").addClass("hidden");
@@ -81,7 +81,7 @@
       $( "#processing_select" ).click(function() {
         $(".active").removeClass("active");
         $("#processing_select").parents("li:first").addClass("active");
-        $(".Shipped").addClass("hidden");
+        $(".Delivered").addClass("hidden");
         $(".Submited").removeClass("hidden");
         $(".Currently.Packing").removeClass("hidden");
         $(".Packed.and.ready.to.ship").removeClass("hidden");
